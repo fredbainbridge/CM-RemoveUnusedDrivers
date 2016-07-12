@@ -172,3 +172,7 @@ Get-CMCategory -CategoryType DriverCategories | ForEach-Object {
         $unusedCategories += $tmpCat
     }
 }
+
+#delete the drivers
+write-host "this should be like 1715ish"
+write-host $UnusedDrivers.count
