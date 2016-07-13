@@ -191,7 +191,9 @@ Get-CMCategory -CategoryType DriverCategories | ForEach-Object {
 }
 
 #delete the drivers
-
 write-verbose "Total unused drivers found $($UnusedDrivers.count)"
+$UnusedDrivers.keys | ForEach-Object {
+    Remove-CMDriver -Id $PSItem -force -Verbose
+}
 
 set-location $env:SystemDrive
