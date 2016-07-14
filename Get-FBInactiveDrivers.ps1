@@ -1,13 +1,15 @@
 ﻿#Find all drivers packages that are not used in a task sequence.
-#this will only work if you are relying on an auto apply drivers step that considers all available drivers. (I think)
+#this will not work if you are relying on an auto apply drivers step that considers all available drivers. (I think)
 
-[CmdletBinding()]
+
+[CmdletBinding(SupportsShouldProcess=$true)]
 param(
     [string]$SiteCode = "LAB",
-    [bool]$ignoreWarnings = $true,
-    $Delete = $false
+    [bool]$ignoreWarnings = $true
 )
 Import-Module "C:\Program Files (x86)\Microsoft Configuration Manager\AdminConsole\bin\ConfigurationManager.psd1"
+
+Start-Transcript -Path "Get-FBInacticeDrivers.log" -Append -Force -WhatIf:$false
 
 set-location $SiteCode`:
 
@@ -101,61 +103,94 @@ Get-CMBootImage | ForEach-Object {
     }    
 }
 
-$UnusedDrivers = @{};
 
 #WMI Example 
 #Get-WmiObject -Query "select * from sms_driver where ci_id = '17101826'" -Namespace 'root\sms\site_arc'
 
+#Store unused driver information in this class.
+Class MyDriver {
+    [string] $Name
+    [string] $ID
+    [string] $InfFile
+    [string] $Version
+    [string[]] $Categories
+    [string[]] $Packages
+}
+$UnusedDriverObjects = @();
+
 Get-CMDriver | ForEach-Object {
+    $myTempDriver = [MyDriver]::new()
+
     $InActiveCategory = $false
     $InActivePackage = $false
     $InBootMedia = $false
 
-    $DriverID = $PSItem.CI_ID
-    $DriverName = $PSItem.LocalizedDisplayName
-    write-verbose "---------$DriverName---------"
+    $myTempDriver.ID = $PSItem.CI_ID
+    $myTempDriver.Name = $PSItem.LocalizedDisplayName
+    $myTempDriver.InfFile = $PSItem.DriverInfFile
+    $myTempDriver.Version = $PSItem.DriverVersion
+
+    write-verbose "---------$($myTempDriver.Name)---------"
     
     #is this in a used category?
     if($PSItem.CategoryInstance_UniqueIDs -ne $null)
     {
+        $tmpCategories = @();
         $tmpIds = $PSItem.CategoryInstance_UniqueIDs
-        $tmpIds | %{($_.ToString()).substring(17)} | Where-Object { $PSItem -in $Categories} | ForEach-Object { 
-            $InActiveCategory = $true 
-            write-verbose "$DriverName is in active category $PSItem"
+        $tmpIds | %{($_.ToString()).substring(17)} | ForEach-Object { 
+            if($PSItem -in $Categories)
+            {
+                $InActiveCategory = $true 
+                write-verbose "$($myTempDriver.Name) is in active category $PSItem"
+            }
+            $tmpCategories += $_
         }       
+        $myTempDriver.Categories = $tmpCategories
     }
     if(-not $InActiveCategory) {
-        Write-verbose "$DriverName is not in an active category"
+        Write-verbose "$($myTempDriver.Name) is not in an active category"
     }
     
     #is this in a used driver package?
-    $packages | ForEach-Object {
+    <#$packages | ForEach-Object {
         Get-WmiObject -Query "select * from sms_drivercontainer where packageID = '$PSitem' and ci_id = '$DriverID'" -Namespace "root\sms\site_$SiteCode" | foreach-Object {
-            write-verbose "$DriverName is in active package $PSitem" 
+            write-verbose "$DriverName is in active package $($PSitem.PackageID)" 
             $InActivePackage = $true
         }
     }
+    #>
+    $tmpPackages = @();
+    Get-WmiObject -Query "select PackageID from sms_drivercontainer where ci_id = '$($myTempDriver.ID)'" -Namespace "root\sms\site_$SiteCode" | foreach-Object {
+            if($PSItem.PackageID -in $Packages) 
+            {
+                write-verbose "$($myTempDriver.Name) is in active package $($PSitem.PackageID)" 
+                $InActivePackage = $true
+            }
+            $tmpPackages += $PSItem.PackageID
+    }
     if( -not $InActivePackage)
     {
-        write-verbose "$DriverName is not in an active package " 
+        write-verbose "$($myTempDriver.Name) is not in an active package " 
     }
     
     #is it boot media?
-    if($DriverID -in $driversInBootMedia)
+    if($myTempDriver.ID -in $driversInBootMedia)
     {
-        write-verbose "$drivername, drive Id: $DriverID is used for boot media"
+        write-verbose "$($myTempDriver.Name), drive Id: $($MyTempDriver.ID) is used for boot media"
         $InBootMedia = $true
     }
     else
     {
-        write-verbose "$DriverName is not in a boot media"
+        write-verbose "$($myTempDriver.Name) is not in a boot media"
     }
     if(-not $InActiveCategory -and (-not $InActivePackage) -and (-not $InBootMedia))  #this is an unused driver.
     {
-        $UnusedDrivers.Add($DriverID, $DriverName)
-        write-verbose "$DriverName, ID: $DriverID is unused and can be deleted."
+        $UnusedDriverObjects += $myTempDriver
+        write-verbose "$($myTempDriver.Name), ID: $($MyTempDriver.ID) is unused and can be deleted."
     }
 }
+
+#$UnusedDriverObjects | select LocalizedDisplayName, DriverInfFile, DriverVersion
 
 #evaluate if driver packages are used
 #Unused Driver Packages.  This is unlikely to be super helpful.  Drivers in packages will also have categories.  
@@ -191,9 +226,15 @@ Get-CMCategory -CategoryType DriverCategories | ForEach-Object {
 }
 
 #delete the drivers
-write-verbose "Total unused drivers found $($UnusedDrivers.count)"
-$UnusedDrivers.keys | ForEach-Object {
-    Remove-CMDriver -Id $PSItem -force -Verbose
+$UnusedDriverObjects.ID| ForEach-Object {
+    if ($pscmdlet.ShouldProcess($PSItem, 'Delete driver')) { #whatif?
+        Remove-CMDriver -Id $PSItem -force -Verbose
+    }
 }
+write-verbose "Total unused drivers found $($UnusedDriverObjects.count)"
 
 set-location $env:SystemDrive
+
+$UnusedDriverObjects | ConvertTo-Html | out-file UnusedDrivers.html -WhatIf:$false
+
+Stop-Transcript
