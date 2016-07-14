@@ -5,9 +5,10 @@
 [CmdletBinding(SupportsShouldProcess=$true)]
 param(
     [string]$SiteCode = "LAB",
+    [string]$HTMLReport,
     [bool]$ignoreWarnings = $true
 )
-Import-Module "C:\Program Files (x86)\Microsoft Configuration Manager\AdminConsole\bin\ConfigurationManager.psd1"
+Import-Module "C:\Program Files (x86)\Microsoft Configuration Manager\AdminConsole\bin\ConfigurationManager.psd1" -verbose:$false
 
 Start-Transcript -Path "Get-FBInacticeDrivers.log" -Append -Force -WhatIf:$false
 
@@ -20,30 +21,22 @@ function EvaluateTS {
     )
     $ids = @();  #category or package ID
     $TaskSequenceXML | ForEach-Object {
-        if($psitem.name -ne "sequence"){write-verbose "Group:  $($PSItem.name)"}
+        #if($psitem.name -ne "sequence"){write-verbose "Group:  $($PSItem.name)"}
         if($psitem.step){
             $psitem.step | ForEach-Object {
-                if($psitem.type -eq 'SMS_TaskSequence_ApplyDriverPackageAction') 
-                { 
-                    #write-verbose 'RunCommandLine'
-                    Write-Verbose $psitem.name
-                    $index = (([xml]$PSItem.OuterXml).step.OuterXml).IndexOf('/install:')
-                    $PackageID = (([xml]$PSItem.OuterXml).step.OuterXml).Substring($index + '/install:'.Length,8)
-                    #if([string]$PackageID -ne ' powersh')
-                    #{
-                        if(Get-CMDriverPackage -Id $PackageID) 
-                        {
-                            write-verbose $PackageID
-                            $ids += $PackageID
-                        }
-                    #}
-                }
-                if($psitem.type -eq 'SMS_TaskSequence_AutoApplyAction') 
+                if ((([xml]$PSItem.OuterXml).step.OuterXml).IndexOf('disable="true"') -eq "-1") #ensure the step isn't disabled.
                 {
-                    
-                    write-verbose "Step - $($psitem.name)"
-                    if((([xml]$PSItem.OuterXml).step.OuterXml).IndexOf('disable="true"') -eq "-1") #not disabled
+                    if($psitem.type -eq 'SMS_TaskSequence_ApplyDriverPackageAction') 
+                    { 
+                        #write-verbose 'SMS_TaskSequence_ApplyDriverPackageAction'
+                        $index = (([xml]$PSItem.OuterXml).step.OuterXml).IndexOf('/install:')
+                        $PackageID = (([xml]$PSItem.OuterXml).step.OuterXml).Substring($index + '/install:'.Length,8)
+                        Write-Verbose "Driver Package: $PackageID found in step `"$($psitem.name)`" "
+                        $ids += $PackageID
+                    }
+                    if($psitem.type -eq 'SMS_TaskSequence_AutoApplyAction') 
                     {
+                        write-verbose "Step - $($psitem.name)"
                         $index = (([xml]$PSItem.OuterXml).step.OuterXml).IndexOf('DriverCategories:')
                         if($index -ne "-1") 
                         {
@@ -61,12 +54,11 @@ function EvaluateTS {
                             }
                         }
                     }
-                    else
-                    {
-                        write-verbose "Step is disabled, skipping"
-                    }
-                    #write-host $CategoryIDs
-                }
+                } 
+                else
+                {
+                    write-verbose "Step is disabled, skipping"
+                } #end of disabled step check
             } #end of steps
         }
         if($psitem.group)
@@ -168,6 +160,8 @@ Get-CMDriver | ForEach-Object {
             }
             $tmpPackages += $PSItem.PackageID
     }
+    $myTempDriver.Packages = $tmpPackages
+
     if( -not $InActivePackage)
     {
         write-verbose "$($myTempDriver.Name) is not in an active package " 
@@ -235,6 +229,15 @@ write-verbose "Total unused drivers found $($UnusedDriverObjects.count)"
 
 set-location $env:SystemDrive
 
-$UnusedDriverObjects | ConvertTo-Html | out-file UnusedDrivers.html -WhatIf:$false
+if($HTMLReport)
+{
+    $a = "<style>"
+    $a = $a + "BODY{background-color:white;}"
+    $a = $a + "TABLE{border-width: 1px;border-style: solid;border-color: black;border-collapse: collapse;text-align: left;}"
+    $a = $a + "TH{border-width: 1px;padding: 1px;border-style: solid;border-color: black;text-align: left;}"
+    $a = $a + "TD{border-width: 1px;padding: 1px;border-style: solid;border-color: black;}"
+    $a = $a + "</style>"
 
+$UnusedDriverObjects | ConvertTo-Html -Head $a | out-file $HTMLReport -WhatIf:$false
+}
 Stop-Transcript
