@@ -5,6 +5,7 @@
 [CmdletBinding(SupportsShouldProcess=$true)]
 param(
     [string]$SiteCode = "LAB",
+    [string]$SiteServer = "CM01",
     [string]$HTMLReport,
     [switch]$IgnoreWarnings
 )
@@ -159,7 +160,7 @@ Get-CMDriver | ForEach-Object {
     }
     #>
     $tmpPackages = @();
-    Get-WmiObject -Query "select PackageID from sms_drivercontainer where ci_id = '$($myTempDriver.ID)'" -Namespace "root\sms\site_$SiteCode" | foreach-Object {
+    Get-WmiObject -Query "select PackageID from sms_drivercontainer where ci_id = '$($myTempDriver.ID)'" -Namespace "root\sms\site_$SiteCode" -ComputerName $SiteServer| foreach-Object {
             if($PSItem.PackageID -in $Packages) 
             {
                 write-verbose "$($myTempDriver.Name) is in active package $($PSitem.PackageID)" 

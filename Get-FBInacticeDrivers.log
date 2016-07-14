@@ -26524,3 +26524,769 @@ VERBOSE: Total unused drivers found 52
 Windows PowerShell transcript end
 End time: 20160714151333
 **********************
+**********************
+Windows PowerShell transcript start
+Start time: 20160714151527
+Username: CM\cm-admin
+RunAs User: CM\cm-admin
+Machine: CM01 (Microsoft Windows NT 6.3.9600.0)
+Host Application: C:\Windows\system32\WindowsPowerShell\v1.0\PowerShell_ISE.exe
+Process ID: 7592
+PSVersion: 5.0.10586.117
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0.10586.117
+BuildVersion: 10.0.10586.117
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+Transcript started, output file is Get-FBInacticeDrivers.log
+VERBOSE: Getting FolderType for path CM01.cm.lab\.
+VERBOSE: FolderType is Drive for path CM01.cm.lab\.
+VERBOSE: Getting FolderType for path CM01.cm.lab\CM01.cm.lab.
+VERBOSE: Getting FolderType failed - Path CM01.cm.lab\CM01.cm.lab does not have a valid top level folder.
+VERBOSE: Getting FolderType for path CM01.cm.lab\.
+VERBOSE: FolderType is Drive for path CM01.cm.lab\.
+VERBOSE: Start: Execution of WQL query: SELECT * FROM SMS_TaskSequencePackage
+VERBOSE: ---------Task Sequence - Windows 7 SP1 x64 - Deploy---------
+VERBOSE: This task sequence step applies drivers from all categories and is not disabled.  This makes it impossible to determine what drivers are not being used.  This should be a build and capture task sequence or something else expected.
+VERBOSE: Ignoring Warning
+VERBOSE: Driver Category 147c5577-d0f8-4b59-9dce-a7a2d0aac9fb found in Step - Auto Apply Drivers
+VERBOSE: Driver Category cb2fde8f-5feb-416c-a4ff-4f631679f2ce found in Step - Auto Apply Drivers
+VERBOSE: Driver step Enable BitLocker is disabled, skipping
+VERBOSE: ---------Task Sequence - Windows 10 Enterprise x64 - Deploy---------
+VERBOSE: Driver Category 147c5577-d0f8-4b59-9dce-a7a2d0aac9fb found in Step - Apply Device Drivers
+VERBOSE: Driver Package: LAB0002F found in step "Apply Driver Package"
+VERBOSE: ---------Task Sequence - Windows 10 Enterprise x64 - Build and Capture---------
+VERBOSE: This task sequence step applies drivers from all categories and is not disabled.  This makes it impossible to determine what drivers are not being used.  This should be a build and capture task sequence or something else expected.
+VERBOSE: Ignoring Warning
+VERBOSE: ---------Task Sequence - Windows 7 SP1 Enterprise x64 - Build and Capture---------
+VERBOSE: This task sequence step applies drivers from all categories and is not disabled.  This makes it impossible to determine what drivers are not being used.  This should be a build and capture task sequence or something else expected.
+VERBOSE: Ignoring Warning
+VERBOSE: Finish: Execution of WQL query: SELECT * FROM SMS_TaskSequencePackage. Processed 4 results in 00:00:00.2063487.
+VERBOSE: All Categories in use :
+VERBOSE: 147c5577-d0f8-4b59-9dce-a7a2d0aac9fb
+VERBOSE: cb2fde8f-5feb-416c-a4ff-4f631679f2ce
+VERBOSE: All Packages in use :
+VERBOSE: LAB0002F
+VERBOSE: Looking for drivers referenced by boot images
+VERBOSE: Start: Execution of WQL query: SELECT * FROM SMS_BootImagePackage
+VERBOSE: Found driver 16786352 in boot image Boot image (x86)
+VERBOSE: Found driver 16786372 in boot image Boot image (x64)
+VERBOSE: Found driver 16786373 in boot image Boot image (x64)
+VERBOSE: Finish: Execution of WQL query: SELECT * FROM SMS_BootImagePackage. Processed 2 results in 00:00:00.0779176.
+VERBOSE: Start: Execution of WQL query: SELECT * FROM SMS_Driver
+VERBOSE: ---------Surface Storage Firmware Update---------
+VERBOSE: Surface Storage Firmware Update is not in an active category
+VERBOSE: Surface Storage Firmware Update is not in an active package
+VERBOSE: Surface Storage Firmware Update is not in a boot media
+VERBOSE: Surface Storage Firmware Update, ID: 16787530 is unused and can be deleted.
+VERBOSE: ---------Intel(R) Dynamic Platform and Thermal Framework Processor Participant - 3401---------
+VERBOSE: Intel(R) Dynamic Platform and Thermal Framework Processor Participant - 3401 is not in an active category
+VERBOSE: Intel(R) Dynamic Platform and Thermal Framework Processor Participant - 3401 is not in an active package
+VERBOSE: Intel(R) Dynamic Platform and Thermal Framework Processor Participant - 3401 is not in a boot media
+VERBOSE: Intel(R) Dynamic Platform and Thermal Framework Processor Participant - 3401, ID: 16787515 is unused and can be deleted.
+VERBOSE: ---------Intel(R) Smart Sound Technology (Intel(R) SST) OED---------
+VERBOSE: Intel(R) Smart Sound Technology (Intel(R) SST) OED is not in an active category
+VERBOSE: Intel(R) Smart Sound Technology (Intel(R) SST) OED is not in an active package
+VERBOSE: Intel(R) Smart Sound Technology (Intel(R) SST) OED is not in a boot media
+VERBOSE: Intel(R) Smart Sound Technology (Intel(R) SST) OED, ID: 16787493 is unused and can be deleted.
+VERBOSE: ---------Realtek USB FE Family Controller---------
+VERBOSE: Realtek USB FE Family Controller is in active category cb2fde8f-5feb-416c-a4ff-4f631679f2ce
+VERBOSE: Realtek USB FE Family Controller is not in an active package
+VERBOSE: Realtek USB FE Family Controller, drive Id: 16786373 is used for boot media
+VERBOSE: ---------Intel(R) AVStream Camera 2500---------
+VERBOSE: Intel(R) AVStream Camera 2500 is not in an active category
+VERBOSE: Intel(R) AVStream Camera 2500 is not in an active package
+VERBOSE: Intel(R) AVStream Camera 2500 is not in a boot media
+VERBOSE: Intel(R) AVStream Camera 2500, ID: 16787495 is unused and can be deleted.
+VERBOSE: ---------Surface Pro 4 Firmware Update---------
+VERBOSE: Surface Pro 4 Firmware Update is not in an active category
+VERBOSE: Surface Pro 4 Firmware Update is not in an active package
+VERBOSE: Surface Pro 4 Firmware Update is not in a boot media
+VERBOSE: Surface Pro 4 Firmware Update, ID: 16787529 is unused and can be deleted.
+VERBOSE: ---------Microsoft Docking Station Audio Device---------
+VERBOSE: Microsoft Docking Station Audio Device is not in an active category
+VERBOSE: Microsoft Docking Station Audio Device is in active package LAB0002F
+VERBOSE: Microsoft Docking Station Audio Device is not in a boot media
+VERBOSE: ---------Camera Sensor OV5693---------
+VERBOSE: Camera Sensor OV5693 is not in an active category
+VERBOSE: Camera Sensor OV5693 is not in an active package
+VERBOSE: Camera Sensor OV5693 is not in a boot media
+VERBOSE: Camera Sensor OV5693, ID: 16787497 is unused and can be deleted.
+VERBOSE: ---------Surface Pen Settings---------
+VERBOSE: Surface Pen Settings is not in an active category
+VERBOSE: Surface Pen Settings is in active package LAB0002F
+VERBOSE: Surface Pen Settings is not in a boot media
+VERBOSE: ---------Intel(R) 8 Series PCI Express Root Port #3 - 9C14---------
+VERBOSE: Intel(R) 8 Series PCI Express Root Port #3 - 9C14 is not in an active category
+VERBOSE: Intel(R) 8 Series PCI Express Root Port #3 - 9C14 is in active package LAB0002F
+VERBOSE: Intel(R) 8 Series PCI Express Root Port #3 - 9C14 is not in a boot media
+VERBOSE: ---------Intel(R) Atom(TM)/Celeron(R)/Pentium(R) Processor SoC Transaction Router - 0F00---------
+VERBOSE: Intel(R) Atom(TM)/Celeron(R)/Pentium(R) Processor SoC Transaction Router - 0F00 is in active category 147c5577-d0f8-4b59-9dce-a7a2d0aac9fb
+VERBOSE: Intel(R) Atom(TM)/Celeron(R)/Pentium(R) Processor SoC Transaction Router - 0F00 is not in an active package
+VERBOSE: Intel(R) Atom(TM)/Celeron(R)/Pentium(R) Processor SoC Transaction Router - 0F00 is not in a boot media
+VERBOSE: ---------Microsoft Surface ACPI-Compliant Control Method Battery---------
+VERBOSE: Microsoft Surface ACPI-Compliant Control Method Battery is not in an active category
+VERBOSE: Microsoft Surface ACPI-Compliant Control Method Battery is in active package LAB0002F
+VERBOSE: Microsoft Surface ACPI-Compliant Control Method Battery is not in a boot media
+VERBOSE: ---------Surface Type Cover Firmware Update---------
+VERBOSE: Surface Type Cover Firmware Update is not in an active category
+VERBOSE: Surface Type Cover Firmware Update is in active package LAB0002F
+VERBOSE: Surface Type Cover Firmware Update is not in a boot media
+VERBOSE: ---------Camera Sensor OV7251---------
+VERBOSE: Camera Sensor OV7251 is not in an active category
+VERBOSE: Camera Sensor OV7251 is not in an active package
+VERBOSE: Camera Sensor OV7251 is not in a boot media
+VERBOSE: Camera Sensor OV7251, ID: 16787498 is unused and can be deleted.
+VERBOSE: ---------Synaptics FP Sensors (WBF) (PID=0017)---------
+VERBOSE: Synaptics FP Sensors (WBF) (PID=0017) is in active category 147c5577-d0f8-4b59-9dce-a7a2d0aac9fb
+VERBOSE: Synaptics FP Sensors (WBF) (PID=0017) is not in an active package
+VERBOSE: Synaptics FP Sensors (WBF) (PID=0017) is not in a boot media
+VERBOSE: ---------Intel Chipset SATA RAID Controller---------
+VERBOSE: Intel Chipset SATA RAID Controller is in active category cb2fde8f-5feb-416c-a4ff-4f631679f2ce
+VERBOSE: Intel Chipset SATA RAID Controller is not in an active package
+VERBOSE: Intel Chipset SATA RAID Controller is not in a boot media
+VERBOSE: ---------H5321 gw Mobile Broadband Device---------
+VERBOSE: H5321 gw Mobile Broadband Device is in active category 147c5577-d0f8-4b59-9dce-a7a2d0aac9fb
+VERBOSE: H5321 gw Mobile Broadband Device is not in an active package
+VERBOSE: H5321 gw Mobile Broadband Device is not in a boot media
+VERBOSE: ---------Surface Pen Click Filter---------
+VERBOSE: Surface Pen Click Filter is not in an active category
+VERBOSE: Surface Pen Click Filter is not in an active package
+VERBOSE: Surface Pen Click Filter is not in a boot media
+VERBOSE: Surface Pen Click Filter, ID: 16787511 is unused and can be deleted.
+VERBOSE: ---------Intel(R) Dual Band Wireless-AC 7265---------
+VERBOSE: Intel(R) Dual Band Wireless-AC 7265 is in active category 147c5577-d0f8-4b59-9dce-a7a2d0aac9fb
+VERBOSE: Intel(R) Dual Band Wireless-AC 7265 is not in an active package
+VERBOSE: Intel(R) Dual Band Wireless-AC 7265 is not in a boot media
+VERBOSE: ---------Realtek High Definition Audio---------
+VERBOSE: Realtek High Definition Audio is not in an active category
+VERBOSE: Realtek High Definition Audio is in active package LAB0002F
+VERBOSE: Realtek High Definition Audio is not in a boot media
+VERBOSE: ---------Intel(R) Serial IO GPIO Host Controller---------
+VERBOSE: Intel(R) Serial IO GPIO Host Controller is not in an active category
+VERBOSE: Intel(R) Serial IO GPIO Host Controller is in active package LAB0002F
+VERBOSE: Intel(R) Serial IO GPIO Host Controller is not in a boot media
+VERBOSE: ---------Intel(R) 100 Series/C230 Series Chipset Family PCI Express Root Port #1 - A110---------
+VERBOSE: Intel(R) 100 Series/C230 Series Chipset Family PCI Express Root Port #1 - A110 is in active category 147c5577-d0f8-4b59-9dce-a7a2d0aac9fb
+VERBOSE: Intel(R) 100 Series/C230 Series Chipset Family PCI Express Root Port #1 - A110 is not in an active package
+VERBOSE: Intel(R) 100 Series/C230 Series Chipset Family PCI Express Root Port #1 - A110 is not in a boot media
+VERBOSE: ---------Surface Touch Cover Filter Device---------
+VERBOSE: Surface Touch Cover Filter Device is not in an active category
+VERBOSE: Surface Touch Cover Filter Device is in active package LAB0002F
+VERBOSE: Surface Touch Cover Filter Device is not in a boot media
+VERBOSE: ---------Surface Wireless Adapter---------
+VERBOSE: Surface Wireless Adapter is not in an active category
+VERBOSE: Surface Wireless Adapter is in active package LAB0002F
+VERBOSE: Surface Wireless Adapter is not in a boot media
+VERBOSE: ---------Marvell AVASTAR Wireless-AC Network Controller---------
+VERBOSE: Marvell AVASTAR Wireless-AC Network Controller is not in an active category
+VERBOSE: Marvell AVASTAR Wireless-AC Network Controller is in active package LAB0002F
+VERBOSE: Marvell AVASTAR Wireless-AC Network Controller is not in a boot media
+VERBOSE: ---------Intel(R) 100 Series Chipset Family PCI Express Root Port #1 - 9D10---------
+VERBOSE: Intel(R) 100 Series Chipset Family PCI Express Root Port #1 - 9D10 is not in an active category
+VERBOSE: Intel(R) 100 Series Chipset Family PCI Express Root Port #1 - 9D10 is not in an active package
+VERBOSE: Intel(R) 100 Series Chipset Family PCI Express Root Port #1 - 9D10 is not in a boot media
+VERBOSE: Intel(R) 100 Series Chipset Family PCI Express Root Port #1 - 9D10, ID: 16787518 is unused and can be deleted.
+VERBOSE: ---------Surface Integration---------
+VERBOSE: Surface Integration is not in an active category
+VERBOSE: Surface Integration is not in an active package
+VERBOSE: Surface Integration is not in a boot media
+VERBOSE: Surface Integration, ID: 16787526 is unused and can be deleted.
+VERBOSE: ---------Surface Keyboard Backlight---------
+VERBOSE: Surface Keyboard Backlight is not in an active category
+VERBOSE: Surface Keyboard Backlight is in active package LAB0002F
+VERBOSE: Surface Keyboard Backlight is not in a boot media
+VERBOSE: ---------Surface UEFI---------
+VERBOSE: Surface UEFI is not in an active category
+VERBOSE: Surface UEFI is not in an active package
+VERBOSE: Surface UEFI is not in a boot media
+VERBOSE: Surface UEFI, ID: 16787537 is unused and can be deleted.
+VERBOSE: ---------Surface Pen---------
+VERBOSE: Surface Pen is not in an active category
+VERBOSE: Surface Pen is in active package LAB0002F
+VERBOSE: Surface Pen is not in a boot media
+VERBOSE: ---------Surface Embedded Controller Firmware---------
+VERBOSE: Surface Embedded Controller Firmware is not in an active category
+VERBOSE: Surface Embedded Controller Firmware is not in an active package
+VERBOSE: Surface Embedded Controller Firmware is not in a boot media
+VERBOSE: Surface Embedded Controller Firmware, ID: 16787533 is unused and can be deleted.
+VERBOSE: ---------Surface Management Engine---------
+VERBOSE: Surface Management Engine is not in an active category
+VERBOSE: Surface Management Engine is not in an active package
+VERBOSE: Surface Management Engine is not in a boot media
+VERBOSE: Surface Management Engine, ID: 16787534 is unused and can be deleted.
+VERBOSE: ---------Integrated Camera---------
+VERBOSE: Integrated Camera is in active category 147c5577-d0f8-4b59-9dce-a7a2d0aac9fb
+VERBOSE: Integrated Camera is not in an active package
+VERBOSE: Integrated Camera is not in a boot media
+VERBOSE: ---------Marvell AVASTAR Bluetooth Radio Adapter---------
+VERBOSE: Marvell AVASTAR Bluetooth Radio Adapter is not in an active category
+VERBOSE: Marvell AVASTAR Bluetooth Radio Adapter is in active package LAB0002F
+VERBOSE: Marvell AVASTAR Bluetooth Radio Adapter is not in a boot media
+VERBOSE: ---------Surface CoSAR Driver---------
+VERBOSE: Surface CoSAR Driver is not in an active category
+VERBOSE: Surface CoSAR Driver is not in an active package
+VERBOSE: Surface CoSAR Driver is not in a boot media
+VERBOSE: Surface CoSAR Driver, ID: 16787509 is unused and can be deleted.
+VERBOSE: ---------Surface Pro 4 Type Cover Integration---------
+VERBOSE: Surface Pro 4 Type Cover Integration is not in an active category
+VERBOSE: Surface Pro 4 Type Cover Integration is in active package LAB0002F
+VERBOSE: Surface Pro 4 Type Cover Integration is not in a boot media
+VERBOSE: ---------Intel(R) Xeon(R) E3 - 1200/1500 v5/6th Gen Intel(R) Core(TM) Host Bridge/DRAM Registers - 1900---------
+VERBOSE: Intel(R) Xeon(R) E3 - 1200/1500 v5/6th Gen Intel(R) Core(TM) Host Bridge/DRAM Registers - 1900 is in active category 147c5577-d0f8-4b59-9dce-a7a2d0aac9fb
+VERBOSE: Intel(R) Xeon(R) E3 - 1200/1500 v5/6th Gen Intel(R) Core(TM) Host Bridge/DRAM Registers - 1900 is not in an active package
+VERBOSE: Intel(R) Xeon(R) E3 - 1200/1500 v5/6th Gen Intel(R) Core(TM) Host Bridge/DRAM Registers - 1900 is not in a boot media
+VERBOSE: ---------Surface Fingerprint Sensor---------
+VERBOSE: Surface Fingerprint Sensor is not in an active category
+VERBOSE: Surface Fingerprint Sensor is not in an active package
+VERBOSE: Surface Fingerprint Sensor is not in a boot media
+VERBOSE: Surface Fingerprint Sensor, ID: 16787489 is unused and can be deleted.
+VERBOSE: ---------Realtek High Definition Audio---------
+VERBOSE: Realtek High Definition Audio is in active category 147c5577-d0f8-4b59-9dce-a7a2d0aac9fb
+VERBOSE: Realtek High Definition Audio is not in an active package
+VERBOSE: Realtek High Definition Audio is not in a boot media
+VERBOSE: ---------Intel(R) Management Engine Interface---------
+VERBOSE: Intel(R) Management Engine Interface is not in an active category
+VERBOSE: Intel(R) Management Engine Interface is not in an active package
+VERBOSE: Intel(R) Management Engine Interface is not in a boot media
+VERBOSE: Intel(R) Management Engine Interface, ID: 16787523 is unused and can be deleted.
+VERBOSE: ---------Surface Pen---------
+VERBOSE: Surface Pen is not in an active category
+VERBOSE: Surface Pen is not in an active package
+VERBOSE: Surface Pen is not in a boot media
+VERBOSE: Surface Pen, ID: 16787510 is unused and can be deleted.
+VERBOSE: ---------Surface Touch Cover 2 Firmware Update---------
+VERBOSE: Surface Touch Cover 2 Firmware Update is not in an active category
+VERBOSE: Surface Touch Cover 2 Firmware Update is in active package LAB0002F
+VERBOSE: Surface Touch Cover 2 Firmware Update is not in a boot media
+VERBOSE: ---------H5321 gw Mobile Broadband Device---------
+VERBOSE: H5321 gw Mobile Broadband Device is in active category 147c5577-d0f8-4b59-9dce-a7a2d0aac9fb
+VERBOSE: H5321 gw Mobile Broadband Device is not in an active package
+VERBOSE: H5321 gw Mobile Broadband Device is not in a boot media
+VERBOSE: ---------Intel(R) Control Logic---------
+VERBOSE: Intel(R) Control Logic is not in an active category
+VERBOSE: Intel(R) Control Logic is not in an active package
+VERBOSE: Intel(R) Control Logic is not in a boot media
+VERBOSE: Intel(R) Control Logic, ID: 16787500 is unused and can be deleted.
+VERBOSE: ---------Surface Camera Windows Hello---------
+VERBOSE: Surface Camera Windows Hello is not in an active category
+VERBOSE: Surface Camera Windows Hello is not in an active package
+VERBOSE: Surface Camera Windows Hello is not in a boot media
+VERBOSE: Surface Camera Windows Hello, ID: 16787501 is unused and can be deleted.
+VERBOSE: ---------Surface Type Cover Firmware Update---------
+VERBOSE: Surface Type Cover Firmware Update is not in an active category
+VERBOSE: Surface Type Cover Firmware Update is not in an active package
+VERBOSE: Surface Type Cover Firmware Update is not in a boot media
+VERBOSE: Surface Type Cover Firmware Update, ID: 16787490 is unused and can be deleted.
+VERBOSE: ---------Surface Type Cover 2 Firmware Update---------
+VERBOSE: Surface Type Cover 2 Firmware Update is not in an active category
+VERBOSE: Surface Type Cover 2 Firmware Update is in active package LAB0002F
+VERBOSE: Surface Type Cover 2 Firmware Update is not in a boot media
+VERBOSE: ---------Surface System Telemetry---------
+VERBOSE: Surface System Telemetry is not in an active category
+VERBOSE: Surface System Telemetry is not in an active package
+VERBOSE: Surface System Telemetry is not in a boot media
+VERBOSE: Surface System Telemetry, ID: 16787531 is unused and can be deleted.
+VERBOSE: ---------Intel(R) HD Graphics---------
+VERBOSE: Intel(R) HD Graphics is not in an active category
+VERBOSE: Intel(R) HD Graphics is in active package LAB0002F
+VERBOSE: Intel(R) HD Graphics is not in a boot media
+VERBOSE: ---------Microsoft LifeCam Front---------
+VERBOSE: Microsoft LifeCam Front is not in an active category
+VERBOSE: Microsoft LifeCam Front is in active package LAB0002F
+VERBOSE: Microsoft LifeCam Front is not in a boot media
+VERBOSE: ---------Marvell AVASTAR Bluetooth Radio Adapter---------
+VERBOSE: Marvell AVASTAR Bluetooth Radio Adapter is not in an active category
+VERBOSE: Marvell AVASTAR Bluetooth Radio Adapter is not in an active package
+VERBOSE: Marvell AVASTAR Bluetooth Radio Adapter is not in a boot media
+VERBOSE: Marvell AVASTAR Bluetooth Radio Adapter, ID: 16787507 is unused and can be deleted.
+VERBOSE: ---------Surface Pro Touch Controller Firmware---------
+VERBOSE: Surface Pro Touch Controller Firmware is not in an active category
+VERBOSE: Surface Pro Touch Controller Firmware is in active package LAB0002F
+VERBOSE: Surface Pro Touch Controller Firmware is not in a boot media
+VERBOSE: ---------F5521 gw Mobile Broadband Serial Port---------
+VERBOSE: F5521 gw Mobile Broadband Serial Port is in active category 147c5577-d0f8-4b59-9dce-a7a2d0aac9fb
+VERBOSE: F5521 gw Mobile Broadband Serial Port is not in an active package
+VERBOSE: F5521 gw Mobile Broadband Serial Port is not in a boot media
+VERBOSE: ---------Surface NVM Express Controller---------
+VERBOSE: Surface NVM Express Controller is not in an active category
+VERBOSE: Surface NVM Express Controller is not in an active package
+VERBOSE: Surface NVM Express Controller is not in a boot media
+VERBOSE: Surface NVM Express Controller, ID: 16787527 is unused and can be deleted.
+VERBOSE: ---------Intel(R) Serial IO UART Host Controller - 9D27---------
+VERBOSE: Intel(R) Serial IO UART Host Controller - 9D27 is not in an active category
+VERBOSE: Intel(R) Serial IO UART Host Controller - 9D27 is not in an active package
+VERBOSE: Intel(R) Serial IO UART Host Controller - 9D27 is not in a boot media
+VERBOSE: Intel(R) Serial IO UART Host Controller - 9D27, ID: 16787522 is unused and can be deleted.
+VERBOSE: ---------Surface Integration---------
+VERBOSE: Surface Integration is not in an active category
+VERBOSE: Surface Integration is in active package LAB0002F
+VERBOSE: Surface Integration is not in a boot media
+VERBOSE: ---------Intel(R) Atom(TM)/Celeron(R)/Pentium(R) Processor EHCI USB - 0F34---------
+VERBOSE: Intel(R) Atom(TM)/Celeron(R)/Pentium(R) Processor EHCI USB - 0F34 is in active category 147c5577-d0f8-4b59-9dce-a7a2d0aac9fb
+VERBOSE: Intel(R) Atom(TM)/Celeron(R)/Pentium(R) Processor EHCI USB - 0F34 is not in an active package
+VERBOSE: Intel(R) Atom(TM)/Celeron(R)/Pentium(R) Processor EHCI USB - 0F34 is not in a boot media
+VERBOSE: ---------Intel(R) Active Management Technology - SOL---------
+VERBOSE: Intel(R) Active Management Technology - SOL is in active category 147c5577-d0f8-4b59-9dce-a7a2d0aac9fb
+VERBOSE: Intel(R) Active Management Technology - SOL is not in an active package
+VERBOSE: Intel(R) Active Management Technology - SOL is not in a boot media
+VERBOSE: ---------Surface Fingerprint Sensor---------
+VERBOSE: Surface Fingerprint Sensor is not in an active category
+VERBOSE: Surface Fingerprint Sensor is in active package LAB0002F
+VERBOSE: Surface Fingerprint Sensor is not in a boot media
+VERBOSE: ---------Intel(R) Serial IO GPIO Host Controller - INT344B---------
+VERBOSE: Intel(R) Serial IO GPIO Host Controller - INT344B is not in an active category
+VERBOSE: Intel(R) Serial IO GPIO Host Controller - INT344B is not in an active package
+VERBOSE: Intel(R) Serial IO GPIO Host Controller - INT344B is not in a boot media
+VERBOSE: Intel(R) Serial IO GPIO Host Controller - INT344B, ID: 16787519 is unused and can be deleted.
+VERBOSE: ---------Surface Display Calibration---------
+VERBOSE: Surface Display Calibration is not in an active category
+VERBOSE: Surface Display Calibration is not in an active package
+VERBOSE: Surface Display Calibration is not in a boot media
+VERBOSE: Surface Display Calibration, ID: 16787506 is unused and can be deleted.
+VERBOSE: ---------Intel(R) 9 Series Chipset Family PCI Express Root Port 1 - 8C90---------
+VERBOSE: Intel(R) 9 Series Chipset Family PCI Express Root Port 1 - 8C90 is in active category 147c5577-d0f8-4b59-9dce-a7a2d0aac9fb
+VERBOSE: Intel(R) 9 Series Chipset Family PCI Express Root Port 1 - 8C90 is not in an active package
+VERBOSE: Intel(R) 9 Series Chipset Family PCI Express Root Port 1 - 8C90 is not in a boot media
+VERBOSE: ---------Synaptics USB Human Interface Device---------
+VERBOSE: Synaptics USB Human Interface Device is in active category 147c5577-d0f8-4b59-9dce-a7a2d0aac9fb
+VERBOSE: Synaptics USB Human Interface Device is not in an active package
+VERBOSE: Synaptics USB Human Interface Device is not in a boot media
+VERBOSE: ---------Intel(R) 6 Series/C200 Series Chipset Family PCI Express Root Port 1 - 1C10---------
+VERBOSE: Intel(R) 6 Series/C200 Series Chipset Family PCI Express Root Port 1 - 1C10 is in active category 147c5577-d0f8-4b59-9dce-a7a2d0aac9fb
+VERBOSE: Intel(R) 6 Series/C200 Series Chipset Family PCI Express Root Port 1 - 1C10 is not in an active package
+VERBOSE: Intel(R) 6 Series/C200 Series Chipset Family PCI Express Root Port 1 - 1C10 is not in a boot media
+VERBOSE: ---------Surface Cover Audio---------
+VERBOSE: Surface Cover Audio is not in an active category
+VERBOSE: Surface Cover Audio is in active package LAB0002F
+VERBOSE: Surface Cover Audio is not in a boot media
+VERBOSE: ---------Surface Cover Click---------
+VERBOSE: Surface Cover Click is not in an active category
+VERBOSE: Surface Cover Click is in active package LAB0002F
+VERBOSE: Surface Cover Click is not in a boot media
+VERBOSE: ---------Surface Pen Pairing---------
+VERBOSE: Surface Pen Pairing is not in an active category
+VERBOSE: Surface Pen Pairing is not in an active package
+VERBOSE: Surface Pen Pairing is not in a boot media
+VERBOSE: Surface Pen Pairing, ID: 16787513 is unused and can be deleted.
+VERBOSE: ---------Intel(R) Celeron(R)/Pentium(R) SM Bus Controller - 2292---------
+VERBOSE: Intel(R) Celeron(R)/Pentium(R) SM Bus Controller - 2292 is in active category 147c5577-d0f8-4b59-9dce-a7a2d0aac9fb
+VERBOSE: Intel(R) Celeron(R)/Pentium(R) SM Bus Controller - 2292 is not in an active package
+VERBOSE: Intel(R) Celeron(R)/Pentium(R) SM Bus Controller - 2292 is not in a boot media
+VERBOSE: ---------Intel(R) Serial IO SPI Host Controller - 9C65---------
+VERBOSE: Intel(R) Serial IO SPI Host Controller - 9C65 is not in an active category
+VERBOSE: Intel(R) Serial IO SPI Host Controller - 9C65 is in active package LAB0002F
+VERBOSE: Intel(R) Serial IO SPI Host Controller - 9C65 is not in a boot media
+VERBOSE: ---------Intel(R) Ethernet Connection I217-LM---------
+VERBOSE: Intel(R) Ethernet Connection I217-LM is in active category 147c5577-d0f8-4b59-9dce-a7a2d0aac9fb
+VERBOSE: Intel(R) Ethernet Connection I217-LM is not in an active package
+VERBOSE: Intel(R) Ethernet Connection I217-LM, drive Id: 16786352 is used for boot media
+VERBOSE: ---------Surface Digitizer Integration---------
+VERBOSE: Surface Digitizer Integration is not in an active category
+VERBOSE: Surface Digitizer Integration is not in an active package
+VERBOSE: Surface Digitizer Integration is not in a boot media
+VERBOSE: Surface Digitizer Integration, ID: 16787504 is unused and can be deleted.
+VERBOSE: ---------F5521 gw Mobile Broadband Serial Port---------
+VERBOSE: F5521 gw Mobile Broadband Serial Port is in active category 147c5577-d0f8-4b59-9dce-a7a2d0aac9fb
+VERBOSE: F5521 gw Mobile Broadband Serial Port is not in an active package
+VERBOSE: F5521 gw Mobile Broadband Serial Port is not in a boot media
+VERBOSE: ---------Intel(R) Display Audio---------
+VERBOSE: Intel(R) Display Audio is in active category 147c5577-d0f8-4b59-9dce-a7a2d0aac9fb
+VERBOSE: Intel(R) Display Audio is not in an active package
+VERBOSE: Intel(R) Display Audio is not in a boot media
+VERBOSE: ---------Intel(R) 8 Series Thermal - 9C24---------
+VERBOSE: Intel(R) 8 Series Thermal - 9C24 is not in an active category
+VERBOSE: Intel(R) 8 Series Thermal - 9C24 is in active package LAB0002F
+VERBOSE: Intel(R) 8 Series Thermal - 9C24 is not in a boot media
+VERBOSE: ---------Intel(R) Xeon(R) E3 - 1200/1500 v5/6th Gen Intel(R) Core(TM) Host Bridge/DRAM Registers - 1900---------
+VERBOSE: Intel(R) Xeon(R) E3 - 1200/1500 v5/6th Gen Intel(R) Core(TM) Host Bridge/DRAM Registers - 1900 is not in an active category
+VERBOSE: Intel(R) Xeon(R) E3 - 1200/1500 v5/6th Gen Intel(R) Core(TM) Host Bridge/DRAM Registers - 1900 is not in an active package
+VERBOSE: Intel(R) Xeon(R) E3 - 1200/1500 v5/6th Gen Intel(R) Core(TM) Host Bridge/DRAM Registers - 1900 is not in a boot media
+VERBOSE: Intel(R) Xeon(R) E3 - 1200/1500 v5/6th Gen Intel(R) Core(TM) Host Bridge/DRAM Registers - 1900, ID: 16787516 is unused and can be deleted.
+VERBOSE: ---------Marvell AVASTAR Wireless-AC Network Controller---------
+VERBOSE: Marvell AVASTAR Wireless-AC Network Controller is not in an active category
+VERBOSE: Marvell AVASTAR Wireless-AC Network Controller is not in an active package
+VERBOSE: Marvell AVASTAR Wireless-AC Network Controller is not in a boot media
+VERBOSE: Marvell AVASTAR Wireless-AC Network Controller, ID: 16787508 is unused and can be deleted.
+VERBOSE: ---------Intel(R) Display Audio---------
+VERBOSE: Intel(R) Display Audio is in active category 147c5577-d0f8-4b59-9dce-a7a2d0aac9fb
+VERBOSE: Intel(R) Display Audio is in active package LAB0002F
+VERBOSE: Intel(R) Display Audio is not in a boot media
+VERBOSE: ---------Surface Touch---------
+VERBOSE: Surface Touch is not in an active category
+VERBOSE: Surface Touch is not in an active package
+VERBOSE: Surface Touch is not in a boot media
+VERBOSE: Surface Touch, ID: 16787536 is unused and can be deleted.
+VERBOSE: ---------Intel(R) 100 Series Chipset Family SCC: eMMC - 9D2B---------
+VERBOSE: Intel(R) 100 Series Chipset Family SCC: eMMC - 9D2B is in active category 147c5577-d0f8-4b59-9dce-a7a2d0aac9fb
+VERBOSE: Intel(R) 100 Series Chipset Family SCC: eMMC - 9D2B is not in an active package
+VERBOSE: Intel(R) 100 Series Chipset Family SCC: eMMC - 9D2B is not in a boot media
+VERBOSE: ---------Mobile 5th Generation Intel(R) Core(TM) PCI Express Root Port #1 - 9C90---------
+VERBOSE: Mobile 5th Generation Intel(R) Core(TM) PCI Express Root Port #1 - 9C90 is in active category 147c5577-d0f8-4b59-9dce-a7a2d0aac9fb
+VERBOSE: Mobile 5th Generation Intel(R) Core(TM) PCI Express Root Port #1 - 9C90 is not in an active package
+VERBOSE: Mobile 5th Generation Intel(R) Core(TM) PCI Express Root Port #1 - 9C90 is not in a boot media
+VERBOSE: ---------Surface Dock Firmware Update---------
+VERBOSE: Surface Dock Firmware Update is not in an active category
+VERBOSE: Surface Dock Firmware Update is in active package LAB0002F
+VERBOSE: Surface Dock Firmware Update is not in a boot media
+VERBOSE: ---------F5521 gw Mobile Broadband Geolocation Sensor---------
+VERBOSE: F5521 gw Mobile Broadband Geolocation Sensor is in active category 147c5577-d0f8-4b59-9dce-a7a2d0aac9fb
+VERBOSE: F5521 gw Mobile Broadband Geolocation Sensor is not in an active package
+VERBOSE: F5521 gw Mobile Broadband Geolocation Sensor is not in a boot media
+VERBOSE: ---------Surface Pro System Aggregator Firmware---------
+VERBOSE: Surface Pro System Aggregator Firmware is not in an active category
+VERBOSE: Surface Pro System Aggregator Firmware is in active package LAB0002F
+VERBOSE: Surface Pro System Aggregator Firmware is not in a boot media
+VERBOSE: ---------Intel Collaborative Processor Performance Control (CPPC) Driver---------
+VERBOSE: Intel Collaborative Processor Performance Control (CPPC) Driver is in active category 147c5577-d0f8-4b59-9dce-a7a2d0aac9fb
+VERBOSE: Intel Collaborative Processor Performance Control (CPPC) Driver is not in an active package
+VERBOSE: Intel Collaborative Processor Performance Control (CPPC) Driver is not in a boot media
+VERBOSE: ---------Surface Accessory Firmware Update---------
+VERBOSE: Surface Accessory Firmware Update is not in an active category
+VERBOSE: Surface Accessory Firmware Update is in active package LAB0002F
+VERBOSE: Surface Accessory Firmware Update is not in a boot media
+VERBOSE: ---------Intel(R) 100 Series Chipset Family PCI Express Root Port #1 - 9D10---------
+VERBOSE: Intel(R) 100 Series Chipset Family PCI Express Root Port #1 - 9D10 is in active category 147c5577-d0f8-4b59-9dce-a7a2d0aac9fb
+VERBOSE: Intel(R) 100 Series Chipset Family PCI Express Root Port #1 - 9D10 is not in an active package
+VERBOSE: Intel(R) 100 Series Chipset Family PCI Express Root Port #1 - 9D10 is not in a boot media
+VERBOSE: ---------Surface Accessory Device---------
+VERBOSE: Surface Accessory Device is not in an active category
+VERBOSE: Surface Accessory Device is not in an active package
+VERBOSE: Surface Accessory Device is not in a boot media
+VERBOSE: Surface Accessory Device, ID: 16787487 is unused and can be deleted.
+VERBOSE: ---------Surface Type Cover Firmware Update---------
+VERBOSE: Surface Type Cover Firmware Update is not in an active category
+VERBOSE: Surface Type Cover Firmware Update is in active package LAB0002F
+VERBOSE: Surface Type Cover Firmware Update is not in a boot media
+VERBOSE: ---------Intel(R) Atom(TM)/Celeron(R)/Pentium(R) Processor Serial IO (SIO) - PWM Port 1 - 0F08---------
+VERBOSE: Intel(R) Atom(TM)/Celeron(R)/Pentium(R) Processor Serial IO (SIO) - PWM Port 1 - 0F08 is in active category 147c5577-d0f8-4b59-9dce-a7a2d0aac9fb
+VERBOSE: Intel(R) Atom(TM)/Celeron(R)/Pentium(R) Processor Serial IO (SIO) - PWM Port 1 - 0F08 is not in an active package
+VERBOSE: Intel(R) Atom(TM)/Celeron(R)/Pentium(R) Processor Serial IO (SIO) - PWM Port 1 - 0F08 is not in a boot media
+VERBOSE: ---------Intel(R) Management Engine Interface---------
+VERBOSE: Intel(R) Management Engine Interface is not in an active category
+VERBOSE: Intel(R) Management Engine Interface is in active package LAB0002F
+VERBOSE: Intel(R) Management Engine Interface is not in a boot media
+VERBOSE: ---------Intel(R) HD Graphics 520---------
+VERBOSE: Intel(R) HD Graphics 520 is not in an active category
+VERBOSE: Intel(R) HD Graphics 520 is not in an active package
+VERBOSE: Intel(R) HD Graphics 520 is not in a boot media
+VERBOSE: Intel(R) HD Graphics 520, ID: 16787503 is unused and can be deleted.
+VERBOSE: ---------Intel(R) Serial IO I2C Host Controller - 9D64---------
+VERBOSE: Intel(R) Serial IO I2C Host Controller - 9D64 is not in an active category
+VERBOSE: Intel(R) Serial IO I2C Host Controller - 9D64 is not in an active package
+VERBOSE: Intel(R) Serial IO I2C Host Controller - 9D64 is not in a boot media
+VERBOSE: Intel(R) Serial IO I2C Host Controller - 9D64, ID: 16787520 is unused and can be deleted.
+VERBOSE: ---------Surface Power Meter---------
+VERBOSE: Surface Power Meter is not in an active category
+VERBOSE: Surface Power Meter is not in an active package
+VERBOSE: Surface Power Meter is not in a boot media
+VERBOSE: Surface Power Meter, ID: 16787528 is unused and can be deleted.
+VERBOSE: ---------Intel(R) 7 Series/C216 Chipset Family PCI Express Root Port 1 - 1E10---------
+VERBOSE: Intel(R) 7 Series/C216 Chipset Family PCI Express Root Port 1 - 1E10 is in active category 147c5577-d0f8-4b59-9dce-a7a2d0aac9fb
+VERBOSE: Intel(R) 7 Series/C216 Chipset Family PCI Express Root Port 1 - 1E10 is not in an active package
+VERBOSE: Intel(R) 7 Series/C216 Chipset Family PCI Express Root Port 1 - 1E10 is not in a boot media
+VERBOSE: ---------Synaptics Pointing Device---------
+VERBOSE: Synaptics Pointing Device is in active category 147c5577-d0f8-4b59-9dce-a7a2d0aac9fb
+VERBOSE: Synaptics Pointing Device is not in an active package
+VERBOSE: Synaptics Pointing Device is not in a boot media
+VERBOSE: ---------Surface Pen Integration---------
+VERBOSE: Surface Pen Integration is not in an active category
+VERBOSE: Surface Pen Integration is not in an active package
+VERBOSE: Surface Pen Integration is not in a boot media
+VERBOSE: Surface Pen Integration, ID: 16787512 is unused and can be deleted.
+VERBOSE: ---------Surface Dock Integration---------
+VERBOSE: Surface Dock Integration is not in an active category
+VERBOSE: Surface Dock Integration is in active package LAB0002F
+VERBOSE: Surface Dock Integration is not in a boot media
+VERBOSE: ---------Intel(R) 100 Series Chipset Family SCC: eMMC - 9D2B---------
+VERBOSE: Intel(R) 100 Series Chipset Family SCC: eMMC - 9D2B is not in an active category
+VERBOSE: Intel(R) 100 Series Chipset Family SCC: eMMC - 9D2B is not in an active package
+VERBOSE: Intel(R) 100 Series Chipset Family SCC: eMMC - 9D2B is not in a boot media
+VERBOSE: Intel(R) 100 Series Chipset Family SCC: eMMC - 9D2B, ID: 16787517 is unused and can be deleted.
+VERBOSE: ---------Surface PTP Filter---------
+VERBOSE: Surface PTP Filter is not in an active category
+VERBOSE: Surface PTP Filter is in active package LAB0002F
+VERBOSE: Surface PTP Filter is not in a boot media
+VERBOSE: ---------Xeon(R) processor E3 - 1200 v2/3rd Gen Core processor DRAM Controller - 0150---------
+VERBOSE: Xeon(R) processor E3 - 1200 v2/3rd Gen Core processor DRAM Controller - 0150 is in active category 147c5577-d0f8-4b59-9dce-a7a2d0aac9fb
+VERBOSE: Xeon(R) processor E3 - 1200 v2/3rd Gen Core processor DRAM Controller - 0150 is not in an active package
+VERBOSE: Xeon(R) processor E3 - 1200 v2/3rd Gen Core processor DRAM Controller - 0150 is not in a boot media
+VERBOSE: ---------Surface Type Cover Filter Device---------
+VERBOSE: Surface Type Cover Filter Device is not in an active category
+VERBOSE: Surface Type Cover Filter Device is in active package LAB0002F
+VERBOSE: Surface Type Cover Filter Device is not in a boot media
+VERBOSE: ---------Intel(R) 8 Series PCI Express Root Port #1 - 9C10---------
+VERBOSE: Intel(R) 8 Series PCI Express Root Port #1 - 9C10 is in active category 147c5577-d0f8-4b59-9dce-a7a2d0aac9fb
+VERBOSE: Intel(R) 8 Series PCI Express Root Port #1 - 9C10 is not in an active package
+VERBOSE: Intel(R) 8 Series PCI Express Root Port #1 - 9C10 is not in a boot media
+VERBOSE: ---------Surface Touch Cover Firmware Update---------
+VERBOSE: Surface Touch Cover Firmware Update is not in an active category
+VERBOSE: Surface Touch Cover Firmware Update is in active package LAB0002F
+VERBOSE: Surface Touch Cover Firmware Update is not in a boot media
+VERBOSE: ---------Surface Button---------
+VERBOSE: Surface Button is not in an active category
+VERBOSE: Surface Button is not in an active package
+VERBOSE: Surface Button is not in a boot media
+VERBOSE: Surface Button, ID: 16787525 is unused and can be deleted.
+VERBOSE: ---------Integrated Camera---------
+VERBOSE: Integrated Camera is in active category 147c5577-d0f8-4b59-9dce-a7a2d0aac9fb
+VERBOSE: Integrated Camera is not in an active package
+VERBOSE: Integrated Camera is not in a boot media
+VERBOSE: ---------Surface Accessory Device---------
+VERBOSE: Surface Accessory Device is not in an active category
+VERBOSE: Surface Accessory Device is in active package LAB0002F
+VERBOSE: Surface Accessory Device is not in a boot media
+VERBOSE: ---------Surface Display---------
+VERBOSE: Surface Display is not in an active category
+VERBOSE: Surface Display is not in an active package
+VERBOSE: Surface Display is not in a boot media
+VERBOSE: Surface Display, ID: 16787505 is unused and can be deleted.
+VERBOSE: ---------Mobile 5th Generation Intel(R) Core(TM) USB EHCI Controller - 9CA6---------
+VERBOSE: Mobile 5th Generation Intel(R) Core(TM) USB EHCI Controller - 9CA6 is in active category 147c5577-d0f8-4b59-9dce-a7a2d0aac9fb
+VERBOSE: Mobile 5th Generation Intel(R) Core(TM) USB EHCI Controller - 9CA6 is not in an active package
+VERBOSE: Mobile 5th Generation Intel(R) Core(TM) USB EHCI Controller - 9CA6 is not in a boot media
+VERBOSE: ---------Mobile 5th Generation Intel(R) Core(TM) Host Bridge - OPI - 1600---------
+VERBOSE: Mobile 5th Generation Intel(R) Core(TM) Host Bridge - OPI - 1600 is in active category 147c5577-d0f8-4b59-9dce-a7a2d0aac9fb
+VERBOSE: Mobile 5th Generation Intel(R) Core(TM) Host Bridge - OPI - 1600 is not in an active package
+VERBOSE: Mobile 5th Generation Intel(R) Core(TM) Host Bridge - OPI - 1600 is not in a boot media
+VERBOSE: ---------Intel(R) 8 Series/C220 Chipset Family SATA AHCI Controller---------
+VERBOSE: Intel(R) 8 Series/C220 Chipset Family SATA AHCI Controller is in active category cb2fde8f-5feb-416c-a4ff-4f631679f2ce
+VERBOSE: Intel(R) 8 Series/C220 Chipset Family SATA AHCI Controller is not in an active package
+VERBOSE: Intel(R) 8 Series/C220 Chipset Family SATA AHCI Controller is not in a boot media
+VERBOSE: ---------Intel(R) Centrino(R) Advanced-N 6235---------
+VERBOSE: Intel(R) Centrino(R) Advanced-N 6235 is in active category 147c5577-d0f8-4b59-9dce-a7a2d0aac9fb
+VERBOSE: Intel(R) Centrino(R) Advanced-N 6235 is not in an active package
+VERBOSE: Intel(R) Centrino(R) Advanced-N 6235 is not in a boot media
+VERBOSE: ---------Intel(R) Serial IO I2C Host Controller - 9C61---------
+VERBOSE: Intel(R) Serial IO I2C Host Controller - 9C61 is not in an active category
+VERBOSE: Intel(R) Serial IO I2C Host Controller - 9C61 is in active package LAB0002F
+VERBOSE: Intel(R) Serial IO I2C Host Controller - 9C61 is not in a boot media
+VERBOSE: ---------Surface Cover Telemetry---------
+VERBOSE: Surface Cover Telemetry is not in an active category
+VERBOSE: Surface Cover Telemetry is in active package LAB0002F
+VERBOSE: Surface Cover Telemetry is not in a boot media
+VERBOSE: ---------Intel(R) Smart Sound Technology (Intel(R) SST) Audio Controller---------
+VERBOSE: Intel(R) Smart Sound Technology (Intel(R) SST) Audio Controller is not in an active category
+VERBOSE: Intel(R) Smart Sound Technology (Intel(R) SST) Audio Controller is not in an active package
+VERBOSE: Intel(R) Smart Sound Technology (Intel(R) SST) Audio Controller is not in a boot media
+VERBOSE: Intel(R) Smart Sound Technology (Intel(R) SST) Audio Controller, ID: 16787492 is unused and can be deleted.
+VERBOSE: ---------Intel(R) Ethernet Connection I217-LM---------
+VERBOSE: Intel(R) Ethernet Connection I217-LM is in active category cb2fde8f-5feb-416c-a4ff-4f631679f2ce
+VERBOSE: Intel(R) Ethernet Connection I217-LM is not in an active package
+VERBOSE: Intel(R) Ethernet Connection I217-LM, drive Id: 16786372 is used for boot media
+VERBOSE: ---------Intel(R) 4th Gen Core processor DRAM Controller - 0C00---------
+VERBOSE: Intel(R) 4th Gen Core processor DRAM Controller - 0C00 is in active category 147c5577-d0f8-4b59-9dce-a7a2d0aac9fb
+VERBOSE: Intel(R) 4th Gen Core processor DRAM Controller - 0C00 is not in an active package
+VERBOSE: Intel(R) 4th Gen Core processor DRAM Controller - 0C00 is not in a boot media
+VERBOSE: ---------Surface Type Cover Integration---------
+VERBOSE: Surface Type Cover Integration is not in an active category
+VERBOSE: Surface Type Cover Integration is in active package LAB0002F
+VERBOSE: Surface Type Cover Integration is not in a boot media
+VERBOSE: ---------Intel(R) Management Engine Interface---------
+VERBOSE: Intel(R) Management Engine Interface is in active category 147c5577-d0f8-4b59-9dce-a7a2d0aac9fb
+VERBOSE: Intel(R) Management Engine Interface is not in an active package
+VERBOSE: Intel(R) Management Engine Interface is not in a boot media
+VERBOSE: ---------Intel(R) Serial IO UART Host Controller - 9C63---------
+VERBOSE: Intel(R) Serial IO UART Host Controller - 9C63 is not in an active category
+VERBOSE: Intel(R) Serial IO UART Host Controller - 9C63 is in active package LAB0002F
+VERBOSE: Intel(R) Serial IO UART Host Controller - 9C63 is not in a boot media
+VERBOSE: ---------Intel(R) Serial IO SPI Host Controller - 9D29---------
+VERBOSE: Intel(R) Serial IO SPI Host Controller - 9D29 is not in an active category
+VERBOSE: Intel(R) Serial IO SPI Host Controller - 9D29 is not in an active package
+VERBOSE: Intel(R) Serial IO SPI Host Controller - 9D29 is not in a boot media
+VERBOSE: Intel(R) Serial IO SPI Host Controller - 9D29, ID: 16787521 is unused and can be deleted.
+VERBOSE: ---------Intel(R) Imaging Signal Processor 2500---------
+VERBOSE: Intel(R) Imaging Signal Processor 2500 is not in an active category
+VERBOSE: Intel(R) Imaging Signal Processor 2500 is not in an active package
+VERBOSE: Intel(R) Imaging Signal Processor 2500 is not in a boot media
+VERBOSE: Intel(R) Imaging Signal Processor 2500, ID: 16787496 is unused and can be deleted.
+VERBOSE: ---------Surface System Aggregator Firmware---------
+VERBOSE: Surface System Aggregator Firmware is not in an active category
+VERBOSE: Surface System Aggregator Firmware is not in an active package
+VERBOSE: Surface System Aggregator Firmware is not in a boot media
+VERBOSE: Surface System Aggregator Firmware, ID: 16787535 is unused and can be deleted.
+VERBOSE: ---------2nd generation Intel(R) Core(TM) processor family DRAM Controller - 0100---------
+VERBOSE: 2nd generation Intel(R) Core(TM) processor family DRAM Controller - 0100 is in active category 147c5577-d0f8-4b59-9dce-a7a2d0aac9fb
+VERBOSE: 2nd generation Intel(R) Core(TM) processor family DRAM Controller - 0100 is not in an active package
+VERBOSE: 2nd generation Intel(R) Core(TM) processor family DRAM Controller - 0100 is not in a boot media
+VERBOSE: ---------Surface Pro UEFI---------
+VERBOSE: Surface Pro UEFI is not in an active category
+VERBOSE: Surface Pro UEFI is in active package LAB0002F
+VERBOSE: Surface Pro UEFI is not in a boot media
+VERBOSE: ---------Realtek High Definition Audio(SST)---------
+VERBOSE: Realtek High Definition Audio(SST) is not in an active category
+VERBOSE: Realtek High Definition Audio(SST) is not in an active package
+VERBOSE: Realtek High Definition Audio(SST) is not in a boot media
+VERBOSE: Realtek High Definition Audio(SST), ID: 16787491 is unused and can be deleted.
+VERBOSE: ---------Intel(R) Dynamic Platform and Thermal Framework Processor Participant - 3401---------
+VERBOSE: Intel(R) Dynamic Platform and Thermal Framework Processor Participant - 3401 is in active category 147c5577-d0f8-4b59-9dce-a7a2d0aac9fb
+VERBOSE: Intel(R) Dynamic Platform and Thermal Framework Processor Participant - 3401 is not in an active package
+VERBOSE: Intel(R) Dynamic Platform and Thermal Framework Processor Participant - 3401 is not in a boot media
+VERBOSE: ---------Surface Pro Embedded Controller Firmware---------
+VERBOSE: Surface Pro Embedded Controller Firmware is not in an active category
+VERBOSE: Surface Pro Embedded Controller Firmware is in active package LAB0002F
+VERBOSE: Surface Pro Embedded Controller Firmware is not in a boot media
+VERBOSE: ---------Surface Home Button---------
+VERBOSE: Surface Home Button is not in an active category
+VERBOSE: Surface Home Button is in active package LAB0002F
+VERBOSE: Surface Home Button is not in a boot media
+VERBOSE: ---------Intel(R) CSI2 Host Controller---------
+VERBOSE: Intel(R) CSI2 Host Controller is not in an active category
+VERBOSE: Intel(R) CSI2 Host Controller is not in an active package
+VERBOSE: Intel(R) CSI2 Host Controller is not in a boot media
+VERBOSE: Intel(R) CSI2 Host Controller, ID: 16787494 is unused and can be deleted.
+VERBOSE: ---------Surface 3 Type Cover Integration Device---------
+VERBOSE: Surface 3 Type Cover Integration Device is not in an active category
+VERBOSE: Surface 3 Type Cover Integration Device is not in an active package
+VERBOSE: Surface 3 Type Cover Integration Device is not in a boot media
+VERBOSE: Surface 3 Type Cover Integration Device, ID: 16787486 is unused and can be deleted.
+VERBOSE: ---------Intel(R) Centrino(R) Advanced-N 6250 AGN---------
+VERBOSE: Intel(R) Centrino(R) Advanced-N 6250 AGN is in active category 147c5577-d0f8-4b59-9dce-a7a2d0aac9fb
+VERBOSE: Intel(R) Centrino(R) Advanced-N 6250 AGN is not in an active package
+VERBOSE: Intel(R) Centrino(R) Advanced-N 6250 AGN is not in a boot media
+VERBOSE: ---------Intel(R) 8 Series/C220 Chipset Family SATA AHCI Controller---------
+VERBOSE: Intel(R) 8 Series/C220 Chipset Family SATA AHCI Controller is in active category 147c5577-d0f8-4b59-9dce-a7a2d0aac9fb
+VERBOSE: Intel(R) 8 Series/C220 Chipset Family SATA AHCI Controller is not in an active package
+VERBOSE: Intel(R) 8 Series/C220 Chipset Family SATA AHCI Controller is not in a boot media
+VERBOSE: ---------Surface Touch Servicing ML---------
+VERBOSE: Surface Touch Servicing ML is not in an active category
+VERBOSE: Surface Touch Servicing ML is not in an active package
+VERBOSE: Surface Touch Servicing ML is not in a boot media
+VERBOSE: Surface Touch Servicing ML, ID: 16787532 is unused and can be deleted.
+VERBOSE: ---------Intel(R) 8 Series/C220 Series PCI Express Root Port #1 - 8C10---------
+VERBOSE: Intel(R) 8 Series/C220 Series PCI Express Root Port #1 - 8C10 is in active category 147c5577-d0f8-4b59-9dce-a7a2d0aac9fb
+VERBOSE: Intel(R) 8 Series/C220 Series PCI Express Root Port #1 - 8C10 is not in an active package
+VERBOSE: Intel(R) 8 Series/C220 Series PCI Express Root Port #1 - 8C10 is not in a boot media
+VERBOSE: ---------Intel(R) 8 Series SMBus Controller - 9C22---------
+VERBOSE: Intel(R) 8 Series SMBus Controller - 9C22 is not in an active category
+VERBOSE: Intel(R) 8 Series SMBus Controller - 9C22 is in active package LAB0002F
+VERBOSE: Intel(R) 8 Series SMBus Controller - 9C22 is not in a boot media
+VERBOSE: ---------Intel(R) Precise Touch Device---------
+VERBOSE: Intel(R) Precise Touch Device is not in an active category
+VERBOSE: Intel(R) Precise Touch Device is not in an active package
+VERBOSE: Intel(R) Precise Touch Device is not in a boot media
+VERBOSE: Intel(R) Precise Touch Device, ID: 16787524 is unused and can be deleted.
+VERBOSE: ---------Intel(R) HD Graphics---------
+VERBOSE: Intel(R) HD Graphics is in active category 147c5577-d0f8-4b59-9dce-a7a2d0aac9fb
+VERBOSE: Intel(R) HD Graphics is not in an active package
+VERBOSE: Intel(R) HD Graphics is not in a boot media
+VERBOSE: ---------LCD 640x480---------
+VERBOSE: LCD 640x480 is in active category 147c5577-d0f8-4b59-9dce-a7a2d0aac9fb
+VERBOSE: LCD 640x480 is not in an active package
+VERBOSE: LCD 640x480 is not in a boot media
+VERBOSE: ---------Realtek USB 3.0 Card Reader---------
+VERBOSE: Realtek USB 3.0 Card Reader is not in an active category
+VERBOSE: Realtek USB 3.0 Card Reader is in active package LAB0002F
+VERBOSE: Realtek USB 3.0 Card Reader is not in a boot media
+VERBOSE: ---------Surface Pen Settings---------
+VERBOSE: Surface Pen Settings is not in an active category
+VERBOSE: Surface Pen Settings is not in an active package
+VERBOSE: Surface Pen Settings is not in a boot media
+VERBOSE: Surface Pen Settings, ID: 16787514 is unused and can be deleted.
+VERBOSE: ---------Lenovo PM Device---------
+VERBOSE: Lenovo PM Device is in active category 147c5577-d0f8-4b59-9dce-a7a2d0aac9fb
+VERBOSE: Lenovo PM Device is not in an active package
+VERBOSE: Lenovo PM Device is not in a boot media
+VERBOSE: ---------Intel(R) Display Audio---------
+VERBOSE: Intel(R) Display Audio is not in an active category
+VERBOSE: Intel(R) Display Audio is not in an active package
+VERBOSE: Intel(R) Display Audio is not in a boot media
+VERBOSE: Intel(R) Display Audio, ID: 16787502 is unused and can be deleted.
+VERBOSE: ---------F5521 gw Mobile Broadband Geolocation Sensor---------
+VERBOSE: F5521 gw Mobile Broadband Geolocation Sensor is in active category 147c5577-d0f8-4b59-9dce-a7a2d0aac9fb
+VERBOSE: F5521 gw Mobile Broadband Geolocation Sensor is not in an active package
+VERBOSE: F5521 gw Mobile Broadband Geolocation Sensor is not in a boot media
+VERBOSE: ---------Intel(R) 6 Series/C200 Series Chipset Family USB Enhanced Host Controller - 1C26---------
+VERBOSE: Intel(R) 6 Series/C200 Series Chipset Family USB Enhanced Host Controller - 1C26 is in active category 147c5577-d0f8-4b59-9dce-a7a2d0aac9fb
+VERBOSE: Intel(R) 6 Series/C200 Series Chipset Family USB Enhanced Host Controller - 1C26 is not in an active package
+VERBOSE: Intel(R) 6 Series/C200 Series Chipset Family USB Enhanced Host Controller - 1C26 is not in a boot media
+VERBOSE: ---------Surface Display Calibration---------
+VERBOSE: Surface Display Calibration is not in an active category
+VERBOSE: Surface Display Calibration is in active package LAB0002F
+VERBOSE: Surface Display Calibration is not in a boot media
+VERBOSE: ---------Camera Sensor OV8865---------
+VERBOSE: Camera Sensor OV8865 is not in an active category
+VERBOSE: Camera Sensor OV8865 is not in an active package
+VERBOSE: Camera Sensor OV8865 is not in a boot media
+VERBOSE: Camera Sensor OV8865, ID: 16787499 is unused and can be deleted.
+VERBOSE: ---------Surface Cover Click---------
+VERBOSE: Surface Cover Click is not in an active category
+VERBOSE: Surface Cover Click is not in an active package
+VERBOSE: Surface Cover Click is not in a boot media
+VERBOSE: Surface Cover Click, ID: 16787488 is unused and can be deleted.
+VERBOSE: ---------Intel Chipset SATA RAID Controller---------
+VERBOSE: Intel Chipset SATA RAID Controller is in active category 147c5577-d0f8-4b59-9dce-a7a2d0aac9fb
+VERBOSE: Intel Chipset SATA RAID Controller is not in an active package
+VERBOSE: Intel Chipset SATA RAID Controller is not in a boot media
+VERBOSE: Finish: Execution of WQL query: SELECT * FROM SMS_Driver. Processed 148 results in 00:00:10.5546716.
+VERBOSE: Looking for unused driver packages.  This is not super helpful
+VERBOSE: Start: Execution of WQL query: SELECT * FROM SMS_DriverPackage
+VERBOSE: Driver Package Lenovo X1 Carbon - Windows 10 is not in use
+VERBOSE: Driver Package Microsoft Surface Pro 3 is in use
+VERBOSE: Driver Package Microsoft Surface Pro 4 is not in use
+VERBOSE: Finish: Execution of WQL query: SELECT * FROM SMS_DriverPackage. Processed 3 results in 00:00:00.0505316.
+VERBOSE: Start: Execution of WQL query: SELECT * FROM SMS_CategoryInstance WHERE CategoryTypeName = 'DriverCategories'
+VERBOSE: Category 147c5577-d0f8-4b59-9dce-a7a2d0aac9fb is in use
+VERBOSE: Category cb2fde8f-5feb-416c-a4ff-4f631679f2ce is in use
+VERBOSE: Category 950e93fb-093b-4bba-86e0-5f6079719db0 is not in use
+VERBOSE: Category c12b70ba-599b-4056-bd68-b2440be7e6c2 is not in use
+VERBOSE: Finish: Execution of WQL query: SELECT * FROM SMS_CategoryInstance WHERE CategoryTypeName = 'DriverCategories'. Processed 4 results in 00:00:00.0436540.
+What if: Performing the operation "Delete driver" on target "16787530".
+What if: Performing the operation "Delete driver" on target "16787515".
+What if: Performing the operation "Delete driver" on target "16787493".
+What if: Performing the operation "Delete driver" on target "16787495".
+What if: Performing the operation "Delete driver" on target "16787529".
+What if: Performing the operation "Delete driver" on target "16787497".
+What if: Performing the operation "Delete driver" on target "16787498".
+What if: Performing the operation "Delete driver" on target "16787511".
+What if: Performing the operation "Delete driver" on target "16787518".
+What if: Performing the operation "Delete driver" on target "16787526".
+What if: Performing the operation "Delete driver" on target "16787537".
+What if: Performing the operation "Delete driver" on target "16787533".
+What if: Performing the operation "Delete driver" on target "16787534".
+What if: Performing the operation "Delete driver" on target "16787509".
+What if: Performing the operation "Delete driver" on target "16787489".
+What if: Performing the operation "Delete driver" on target "16787523".
+What if: Performing the operation "Delete driver" on target "16787510".
+What if: Performing the operation "Delete driver" on target "16787500".
+What if: Performing the operation "Delete driver" on target "16787501".
+What if: Performing the operation "Delete driver" on target "16787490".
+What if: Performing the operation "Delete driver" on target "16787531".
+What if: Performing the operation "Delete driver" on target "16787507".
+What if: Performing the operation "Delete driver" on target "16787527".
+What if: Performing the operation "Delete driver" on target "16787522".
+What if: Performing the operation "Delete driver" on target "16787519".
+What if: Performing the operation "Delete driver" on target "16787506".
+What if: Performing the operation "Delete driver" on target "16787513".
+What if: Performing the operation "Delete driver" on target "16787504".
+What if: Performing the operation "Delete driver" on target "16787516".
+What if: Performing the operation "Delete driver" on target "16787508".
+What if: Performing the operation "Delete driver" on target "16787536".
+What if: Performing the operation "Delete driver" on target "16787487".
+What if: Performing the operation "Delete driver" on target "16787503".
+What if: Performing the operation "Delete driver" on target "16787520".
+What if: Performing the operation "Delete driver" on target "16787528".
+What if: Performing the operation "Delete driver" on target "16787512".
+What if: Performing the operation "Delete driver" on target "16787517".
+What if: Performing the operation "Delete driver" on target "16787525".
+What if: Performing the operation "Delete driver" on target "16787505".
+What if: Performing the operation "Delete driver" on target "16787492".
+What if: Performing the operation "Delete driver" on target "16787521".
+What if: Performing the operation "Delete driver" on target "16787496".
+What if: Performing the operation "Delete driver" on target "16787535".
+What if: Performing the operation "Delete driver" on target "16787491".
+What if: Performing the operation "Delete driver" on target "16787494".
+What if: Performing the operation "Delete driver" on target "16787486".
+What if: Performing the operation "Delete driver" on target "16787532".
+What if: Performing the operation "Delete driver" on target "16787524".
+What if: Performing the operation "Delete driver" on target "16787514".
+What if: Performing the operation "Delete driver" on target "16787502".
+What if: Performing the operation "Delete driver" on target "16787499".
+What if: Performing the operation "Delete driver" on target "16787488".
+VERBOSE: Total unused drivers found 52
+**********************
+Windows PowerShell transcript end
+End time: 20160714151538
+**********************
