@@ -244,6 +244,6 @@ if($HTMLReport)
     $a = $a + "TD{border-width: 1px;padding: 1px;border-style: solid;border-color: black;}"
     $a = $a + "</style>"
 
-$UnusedDriverObjects | ConvertTo-Html -Head $a | out-file $HTMLReport -WhatIf:$false
+$UnusedDriverObjects | ConvertTo-Html -Head $a -body "<H2>Unused Driver Information</H2>"| out-file $HTMLReport -WhatIf:$false
 }
 Stop-Transcript
