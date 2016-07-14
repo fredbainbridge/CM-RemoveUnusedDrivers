@@ -6,9 +6,10 @@
 param(
     [string]$SiteCode = "LAB",
     [string]$HTMLReport,
-    [bool]$ignoreWarnings = $true
+    [switch]$IgnoreWarnings
 )
-Import-Module "C:\Program Files (x86)\Microsoft Configuration Manager\AdminConsole\bin\ConfigurationManager.psd1" -verbose:$false
+
+import-module ($Env:SMS_ADMIN_UI_PATH.Substring(0,$Env:SMS_ADMIN_UI_PATH.Length-5) + '\ConfigurationManager.psd1') -Verbose:$false
 
 Start-Transcript -Path "Get-FBInacticeDrivers.log" -Append -Force -WhatIf:$false
 
