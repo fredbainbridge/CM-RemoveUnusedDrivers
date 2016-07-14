@@ -36,12 +36,11 @@ function EvaluateTS {
                     }
                     if($psitem.type -eq 'SMS_TaskSequence_AutoApplyAction') 
                     {
-                        write-verbose "Step - $($psitem.name)"
                         $index = (([xml]$PSItem.OuterXml).step.OuterXml).IndexOf('DriverCategories:')
                         if($index -ne "-1") 
                         {
                             $CategoryID = (([xml]$PSItem.OuterXml).step.OuterXml).Substring($index + 'DriverCategories:'.Length,36)
-                            write-verbose $CategoryID
+                            write-verbose "Driver Category $CategoryID found in Step - $($psitem.name)"
                             $ids += $CategoryID
                         }
                         else
@@ -52,12 +51,16 @@ function EvaluateTS {
                                 $response = Read-Host -Prompt "Warning! Continue? Y/N"
                                 if( $response.ToUpper() -ne "Y" ) { exit }
                             }
+                            else
+                            {
+                                Write-Verbose "Ignoring Warning"
+                            }
                         }
                     }
                 } 
                 else
                 {
-                    write-verbose "Step is disabled, skipping"
+                    write-verbose "Driver step $($psitem.name) is disabled, skipping"
                 } #end of disabled step check
             } #end of steps
         }
@@ -75,7 +78,7 @@ function EvaluateTS {
 $IDs = @() #Packages or Categories
 Get-CMTaskSequence | ForEach-Object {
     #([xml](Get-CMTaskSequence | select sequence).sequence)
-    Write-Verbose "Task Sequence - $($PSItem.Name)"
+    Write-Verbose "---------Task Sequence - $($PSItem.Name)---------"
     $sequence = [xml]$psitem.sequence
     $IDs += EvaluateTS -TaskSequenceXML $sequence.sequence -verbose 
 }
@@ -83,7 +86,10 @@ $IDs = $IDs | select -Unique
 $Categories = $IDs -match ("(\{){0,1}[0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}(\}){0,1}")
 $Packages = $IDs -notmatch ("(\{){0,1}[0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}(\}){0,1}")
 if($Categories -eq $true) {$Categories = $ID} #only one category found
-Write-Verbose "All Possible Categories: $Categories"
+Write-Verbose "All Categories in use : "
+$Categories | ForEach-Object { write-verbose $PSItem}
+Write-Verbose "All Packages in use : "
+$Packages | ForEach-Object { write-verbose $PSItem}
 #get drivers IDs used in boot images
 $driversInBootMedia = @();
 Write-Verbose "Looking for drivers referenced by boot images"
