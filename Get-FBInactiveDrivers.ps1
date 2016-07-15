@@ -1,19 +1,19 @@
 ﻿#Find all drivers packages that are not used in a task sequence.
-#this will not work if you are relying on an auto apply drivers step that considers all available drivers. (I think)
-
+#"Warnings" are generated if there are apply driver steps that use all drivers. 
+#the set-location needs improving.  if you run from e: it fails, etc.
 
 [CmdletBinding(SupportsShouldProcess=$true)]
 param(
     [string]$SiteCode = "LAB",
     [string]$SiteServer = "CM01",
-    [string]$HTMLReport,
-    [switch]$IgnoreWarnings
+    [string]$HTMLReport = "UnusedDrivers.html",
+    [switch]$IgnoreWarnings = $true
 )
 
 import-module ($Env:SMS_ADMIN_UI_PATH.Substring(0,$Env:SMS_ADMIN_UI_PATH.Length-5) + '\ConfigurationManager.psd1') -Verbose:$false
 
 Start-Transcript -Path "Get-FBInactiveDrivers.log" -Append -Force -WhatIf:$false
-
+$StartingDriveLocation = $pwd.Drive.Name
 set-location $SiteCode`:
 
 function EvaluateTS {
@@ -115,6 +115,7 @@ Class MyDriver {
     [string] $Version
     [string[]] $Categories
     [string[]] $Packages
+    [string] $SourcePath
 }
 $UnusedDriverObjects = @();
 
@@ -129,6 +130,7 @@ Get-CMDriver | ForEach-Object {
     $myTempDriver.Name = $PSItem.LocalizedDisplayName
     $myTempDriver.InfFile = $PSItem.DriverInfFile
     $myTempDriver.Version = $PSItem.DriverVersion
+    $myTempDriver.SourcePath = $PSItem.ContentSourcePath
 
     write-verbose "---------$($myTempDriver.Name)---------"
     
@@ -235,7 +237,7 @@ $UnusedDriverObjects.ID| ForEach-Object {
 }
 write-verbose "Total unused drivers found $($UnusedDriverObjects.count)"
 
-set-location $env:SystemDrive
+set-location $StartingDriveLocation`:
 
 if($HTMLReport)
 {
@@ -256,22 +258,22 @@ if($HTMLReport)
     </head><body>
     <H2>Unused Driver Information</H2>
     <table>
-    <colgroup><col/><col/><col/><col/><col/><col/></colgroup>
-    <tr><th>Name</th><th>ID</th><th>InfFile</th><th>Version</th><th>Categories</th><th>Packages</th></tr>
+    <colgroup><col/><col/><col/><col/><col/><col/><col/></colgroup>
+    <tr><th>Name</th><th>ID</th><th>InfFile</th><th>Version</th><th>Categories</th><th>Packages</th><th>Source Path</th></tr>
 "@
-
+    $UnusedDriverObjects = $UnusedDriverObjects | Sort-Object -Property Name
     $UnusedDriverObjects | ForEach-Object {
         $tempPackages = $null
         $tempCategories = $null
         $PSItem.Packages | ForEach-Object {
             $tempPackages = "$tempPackages, $PSItem"           
+            $tempPackages = $tempPackages.trim(", ")
         }
-        $tempPackages = $tempPackages.trim(", ")
         $PSItem.Categories | ForEach-Object {
             $tempCategories = "$tempCategories, $PSItem"
         }
         $tempCategories = $tempCategories.Trim(", ")
-        $HTML = "$HTML<tr><td>$($PSItem.Name)</td><td>$($PSItem.ID)</td><td>$($PSItem.InfFile)</td><td>$($PSItem.Version)</td><td>$tempCategories</td><td>$tempPackages</td></tr>"
+        $HTML = "$HTML<tr><td>$($PSItem.Name)</td><td>$($PSItem.ID)</td><td>$($PSItem.InfFile)</td><td>$($PSItem.Version)</td><td>$tempCategories</td><td>$tempPackages</td><td>$($PSItem.SourcePath)</td></tr>"
     }
     $html = "$HTML </table></body></html>"
     $HTML | Out-File $HTMLReport -WhatIf:$false
