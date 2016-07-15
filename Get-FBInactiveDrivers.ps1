@@ -1,6 +1,19 @@
 ﻿#Find all drivers packages that are not used in a task sequence.
+#
+#If a driver is not referenced in an apply driver step (category or driver package) and 
+#is not part of a boot image, it is considered not in use.
+#
 #"Warnings" are generated if there are apply driver steps that use all drivers. 
-#the set-location needs improving.  if you run from e: it fails, etc.
+#In order for this to be most accurate you should first cleanup or delete and legacy task sequences.
+#This will find any driver referenced in all task sequences.
+#Using -WhatIf the first time you run this script is highly recommended
+#
+
+##
+#To do 
+#Get category name instead of GUID in output.
+#Add unused packages and categories to the HTML output
+##
 
 [CmdletBinding(SupportsShouldProcess=$true)]
 param(
