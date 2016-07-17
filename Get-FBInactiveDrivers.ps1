@@ -144,6 +144,7 @@ Get-CMDriver | ForEach-Object {
     $myTempDriver.InfFile = $PSItem.DriverInfFile
     $myTempDriver.Version = $PSItem.DriverVersion
     $myTempDriver.SourcePath = $PSItem.ContentSourcePath
+    
 
     write-verbose "---------$($myTempDriver.Name)---------"
     
@@ -151,6 +152,7 @@ Get-CMDriver | ForEach-Object {
     if($PSItem.CategoryInstance_UniqueIDs -ne $null)
     {
         $tmpCategories = @();
+        $tmpCategoriesNames = @();
         $tmpIds = $PSItem.CategoryInstance_UniqueIDs
         $tmpIds | %{($_.ToString()).substring(17)} | ForEach-Object { 
             if($PSItem -in $Categories)
@@ -158,9 +160,10 @@ Get-CMDriver | ForEach-Object {
                 $InActiveCategory = $true 
                 write-verbose "$($myTempDriver.Name) is in active category $PSItem"
             }
-            $tmpCategories += $_
+            $tmpCategories += $PSItem
+            $tmpCategoriesNames += (Get-CMCategory -Id "DriverCategories:$PSItem").LocalizedCategoryInstanceName
         }       
-        $myTempDriver.Categories = $tmpCategories
+        $myTempDriver.Categories = $tmpCategoriesNames
     }
     if(-not $InActiveCategory) {
         Write-verbose "$($myTempDriver.Name) is not in an active category"
@@ -229,6 +232,7 @@ Get-CMDriverPackage | ForEach-Object {
 $unusedCategories = @();
 Get-CMCategory -CategoryType DriverCategories | ForEach-Object {
     
+    $CategoryName = $psitem.LocalizedCategoryInstanceName
     $tmpCat = $psitem.CategoryInstance_UniqueID
     $tmpCat = $tmpCat.substring(17)
     if($tmpCat -in $Categories)
@@ -237,8 +241,8 @@ Get-CMCategory -CategoryType DriverCategories | ForEach-Object {
     }
     else
     {
-        write-verbose "Category $tmpCat is not in use"
-        $unusedCategories += $tmpCat
+        write-verbose "Category $CategoryName is not in use"
+        $unusedCategories += $CategoryName
     }
 }
 
