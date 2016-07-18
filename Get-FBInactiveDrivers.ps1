@@ -11,7 +11,7 @@
 
 ##
 #To do 
-#Get category name instead of GUID in output.
+#Get category name instead of GUID in output. (done)
 #Add unused packages and categories to the HTML output
 ##
 
@@ -130,6 +130,17 @@ Class MyDriver {
     [string[]] $Packages
     [string] $SourcePath
 }
+
+Class MyPackage {
+    [string] $Name
+    [string] $ID
+}
+
+Class MyCategory {
+    [string] $Name
+    [string] $ID
+}
+
 $UnusedDriverObjects = @();
 
 Get-CMDriver | ForEach-Object {
@@ -217,6 +228,7 @@ Get-CMDriver | ForEach-Object {
 write-verbose "Looking for unused driver packages.  This is not super helpful"
 $unusedDriverPackages = @();
 Get-CMDriverPackage | ForEach-Object {
+    $myTempPackage = [myPackage]::new()
     if($PSItem.PackageID -in $packages ) {
         
         Write-verbose "Driver Package $($PSItem.Name) is in use"
@@ -224,25 +236,27 @@ Get-CMDriverPackage | ForEach-Object {
     else
     {
         Write-verbose "Driver Package $($PSItem.Name) is not in use" 
-        $unusedDriverPackages += $PSItem.PackageID
+        $myTempPackage.ID = $PSItem.PackageID
+        $myTempPackage.Name = $PSItem.Name
+        $unusedDriverPackages += $myTempPackage
     }
 }
 
 #evaluate which driver categories are used
 $unusedCategories = @();
 Get-CMCategory -CategoryType DriverCategories | ForEach-Object {
-    
-    $CategoryName = $psitem.LocalizedCategoryInstanceName
-    $tmpCat = $psitem.CategoryInstance_UniqueID
-    $tmpCat = $tmpCat.substring(17)
+    $myTempCategory = [myCategory]::new()
+    $myTempCategory.Name = $psitem.LocalizedCategoryInstanceName
+    $myTempCategory.ID = $psitem.CategoryInstance_UniqueID
+    $tmpCat = $myTempCategory.ID.substring(17)
     if($tmpCat -in $Categories)
     {
-        Write-Verbose "Category $tmpcat is in use"
+        Write-Verbose "Category $CategoryName is in use"
     }
     else
     {
         write-verbose "Category $CategoryName is not in use"
-        $unusedCategories += $CategoryName
+        $unusedCategories += $myTempCategory
     }
 }
 
@@ -266,6 +280,7 @@ if($HTMLReport)
     $a = $a + "</style>"
     $RowExample = "<tr><td>Intel(R) Smart Sound Technology (Intel(R) SST) OED</td><td>16787493</td><td>IntcOED.inf</td><td>8.20.0.877</td><td>System.String[]</td><td>System.String[]</td></tr>"
     #>
+    #Unused Drivers
     $html = 
 @"
     <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -292,9 +307,39 @@ if($HTMLReport)
         $tempCategories = $tempCategories.Trim(", ")
         $HTML = "$HTML<tr><td>$($PSItem.Name)</td><td>$($PSItem.ID)</td><td>$($PSItem.InfFile)</td><td>$($PSItem.Version)</td><td>$tempCategories</td><td>$tempPackages</td><td>$($PSItem.SourcePath)</td></tr>"
     }
-    $html = "$HTML </table></body></html>"
-    $HTML | Out-File $HTMLReport -WhatIf:$false
-    #$UnusedDriverObjects | ConvertTo-Html -Head $a -body "<H2>Unused Driver Information</H2>"| out-file $HTMLReport -WhatIf:$false
+    $html = "$HTML </table>"
+    
+    $UnusedPackageHTML = 
+@"
+<H2>Unused Driver Package Information</H2>
+    <table>
+    <colgroup><col/><col/></colgroup>
+    <tr><th>Name</th><th>ID</th></tr>
+"@
+    $html = "$html $UnusedPackageHTML"
+    $unusedDriverPackages | ForEach-Object {
+        $HTML = "$HTML<tr><td>$($PSItem.Name)</td><td>$($PSItem.ID)</td></tr>"       
+    }
+    $html = "$HTML </table>"
+    $UnusedCategoryHTML = 
+@"
+<H2>Unused Category Information</H2>
+    <table>
+    <colgroup><col/><col/></colgroup>
+    <tr><th>Name</th><th>ID</th></tr>
+"@
+    $html = "$html $UnusedCategoryHTML"
+    $unusedCategories | ForEach-Object {
+        $HTML = "$HTML<tr><td>$($PSItem.Name)</td><td>$($PSItem.ID)</td></tr>"       
+    }
+    $html = "$HTML </table>"
+
+    $html = "$HTML </body></html>"
     
 }
+
+$HTML | Out-File $HTMLReport -WhatIf:$false
+#$UnusedDriverObjects | ConvertTo-Html -Head $a -body "<H2>Unused Driver Information</H2>"| out-file $HTMLReport -WhatIf:$false
+#Unused Packages
+    
 Stop-Transcript
