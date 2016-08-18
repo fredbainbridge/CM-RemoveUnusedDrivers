@@ -204,7 +204,7 @@ Get-CMDriver | ForEach-Object {
         write-verbose "$($myTempDriver.Name) is not in an active package " 
     }
     
-    #is it boot media?
+    #is it in boot media?
     if($myTempDriver.ID -in $driversInBootMedia)
     {
         write-verbose "$($myTempDriver.Name), drive Id: $($MyTempDriver.ID) is used for boot media"
@@ -225,7 +225,7 @@ Get-CMDriver | ForEach-Object {
 
 #evaluate if driver packages are used
 #Unused Driver Packages.  This is unlikely to be super helpful.  Drivers in packages will also have categories.  
-write-verbose "Looking for unused driver packages.  This is not super helpful"
+write-verbose "Looking for unused driver packages."
 $unusedDriverPackages = @();
 Get-CMDriverPackage | ForEach-Object {
     $myTempPackage = [myPackage]::new()
