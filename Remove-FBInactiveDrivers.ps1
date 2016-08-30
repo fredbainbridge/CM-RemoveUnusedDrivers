@@ -3,13 +3,13 @@
     This script should be run on as needed basis.
 
 .DESCRIPTION
-    This script is used to identify and then delete unused drivers.  
+    This script is used to identIfy and then delete unused drivers.  
     If any of these conditions are true a driver is consider "in use":
 	1. The driver is in a Driver Package that is referenced by a Apply Drivers step of a task sequence.
 	2. The driver is in a Driver Category that is referenced by an Auto Apply Drivers step of the task sequence.
 	3. The driver is imported into existing boot media.
 
-    "Warnings" are generated if there are apply driver steps that use all drivers. 
+    "Warnings" are generated If there are apply driver steps that use all drivers. 
     In order for this to be most accurate you should first cleanup or delete and legacy task sequences.
     This will find any driver referenced in all task sequences.
     Using -WhatIf the first time you run this script is highly recommended
@@ -21,7 +21,7 @@
 .PARAMETER HTMLReport
     The filename of a HTML report that shows what drivers are not in use.  This defaults to "UnusedDrivers.html"
 .PARAMETER IgnoreWarnings
-    Switch parameter.  Specify this if you want to Ignore warnings about auto apply drivers steps.
+    Switch parameter.  SpecIfy this If you want to Ignore warnings about auto apply drivers steps.
 
 .EXAMPLE
     Discover what drivers are not in use but do not delete them. (WhatIf)
@@ -42,77 +42,79 @@
 
 [CmdletBinding(SupportsShouldProcess=$true)]
 param(
+    [Parameter(Mandatory=$True)]
     [string]$SiteCode,
+    [Parameter(Mandatory=$True)]
     [string]$SiteServer,
     [string]$HTMLReport = "UnusedDrivers.html",
     [switch]$IgnoreWarnings
 )
 
-import-module ($Env:SMS_ADMIN_UI_PATH.Substring(0,$Env:SMS_ADMIN_UI_PATH.Length-5) + '\ConfigurationManager.psd1') -Verbose:$false
+Import-Module ($Env:SMS_ADMIN_UI_PATH.Substring(0,$Env:SMS_ADMIN_UI_PATH.Length-5) + '\ConfigurationManager.psd1') -Verbose:$false
 
 Start-Transcript -Path "Get-FBInactiveDrivers.log" -Append -Force -WhatIf:$false
 $StartingDriveLocation = $pwd.Drive.Name
-set-location $SiteCode`:
+Set-Location $SiteCode`:
 
-function EvaluateTS {
+Function EvaluateTS {
     [CmdletBinding()]
     param(
         $TaskSequenceXML
     )
-    $ids = @();  #category or package ID
+    $IDs = @();  #category or package ID
     $TaskSequenceXML | ForEach-Object {
-        #if($psitem.name -ne "sequence"){write-verbose "Group:  $($PSItem.name)"}
-        if($psitem.step){
+        #If($psitem.name -ne "sequence"){Write-Verbose "Group:  $($PSItem.name)"}
+        If($psitem.step){
             $psitem.step | ForEach-Object {
-                if ((([xml]$PSItem.OuterXml).step.OuterXml).IndexOf('disable="true"') -eq "-1") #ensure the step isn't disabled.
+                If ((([xml]$PSItem.OuterXml).step.OuterXml).IndexOf('disable="true"') -eq "-1") #ensure the step isn't disabled.
                 {
-                    if($psitem.type -eq 'SMS_TaskSequence_ApplyDriverPackageAction') 
+                    If($psitem.type -eq 'SMS_TaskSequence_ApplyDriverPackageAction') 
                     { 
-                        #write-verbose 'SMS_TaskSequence_ApplyDriverPackageAction'
+                        #Write-Verbose 'SMS_TaskSequence_ApplyDriverPackageAction'
                         $index = (([xml]$PSItem.OuterXml).step.OuterXml).IndexOf('/install:')
                         $PackageID = (([xml]$PSItem.OuterXml).step.OuterXml).Substring($index + '/install:'.Length,8)
                         Write-Verbose "Driver Package: $PackageID found in step `"$($psitem.name)`" "
-                        $ids += $PackageID
+                        $IDs += $PackageID
                     }
-                    if($psitem.type -eq 'SMS_TaskSequence_AutoApplyAction') 
+                    If($psitem.type -eq 'SMS_TaskSequence_AutoApplyAction') 
                     {
                         $index = (([xml]$PSItem.OuterXml).step.OuterXml).IndexOf('DriverCategories:')
-                        if($index -ne "-1") 
+                        If($index -ne "-1") 
                         {
                             $CategoryID = (([xml]$PSItem.OuterXml).step.OuterXml).Substring($index + 'DriverCategories:'.Length,36)
-                            write-verbose "Driver Category $CategoryID found in Step - $($psitem.name)"
-                            $ids += $CategoryID
+                            Write-Verbose "Driver Category $CategoryID found in Step - $($psitem.name)"
+                            $IDs += $CategoryID
                         }
-                        else
+                        Else
                         {
-                            Write-Verbose "This task sequence step applies drivers from all categories and is not disabled.  This makes it impossible to determine what drivers are not being used.  This should be a build and capture task sequence or something else expected."
-                            if( -not $ignoreWarnings)
+                            Write-Verbose "This task sequence step applies drivers from all categories and is not disabled.  This makes it impossible to determine what drivers are not being used.  This should be a build and capture task sequence or something Else expected."
+                            If( -not $IgnoreWarnings)
                             {
                                 $response = Read-Host -Prompt "Warning! Continue? Y/N"
-                                if( $response.ToUpper() -ne "Y" ) { exit }
+                                If( $response.ToUpper() -ne "Y" ) { exit }
                             }
-                            else
+                            Else
                             {
                                 Write-Verbose "Ignoring Warning"
                             }
                         }
                     }
                 } 
-                else
+                Else
                 {
-                    write-verbose "Driver step $($psitem.name) is disabled, skipping"
+                    Write-Verbose "Driver step $($psitem.name) is disabled, skipping"
                 } #end of disabled step check
             } #end of steps
         }
-        if($psitem.group)
+        If($psitem.group)
         {
-            $ids += EvaluateTS -TaskSequenceXML $psitem.group -verbose  
+            $IDs += EvaluateTS -TaskSequenceXML $psitem.group -verbose  
         }
 
     }
     #write-output $CategoryIDs -verbose
     #Write-Output $packageIDs -verbose
-    write-output $ids
+    write-output $IDs
 }
 
 $IDs = @() #Packages or Categories
@@ -125,11 +127,11 @@ Get-CMTaskSequence | ForEach-Object {
 $IDs = $IDs | select -Unique
 $Categories = $IDs -match ("(\{){0,1}[0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}(\}){0,1}")
 $Packages = $IDs -notmatch ("(\{){0,1}[0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}(\}){0,1}")
-if($Categories -eq $true) {$Categories = $ID} #only one category found
+If($Categories -eq $true) {$Categories = $ID} #only one category found
 Write-Verbose "All Categories in use : "
-$Categories | ForEach-Object { write-verbose $PSItem}
+$Categories | ForEach-Object { Write-Verbose $PSItem}
 Write-Verbose "All Packages in use : "
-$Packages | ForEach-Object { write-verbose $PSItem}
+$Packages | ForEach-Object { Write-Verbose $PSItem}
 #get drivers IDs used in boot images
 $driversInBootMedia = @();
 Write-Verbose "Looking for drivers referenced by boot images"
@@ -137,7 +139,7 @@ Get-CMBootImage | ForEach-Object {
     $bootImageName = $psitem.name
     $PSItem.ReferencedDrivers | ForEach-Object {
         $driversInBootMedia += $PSItem.id
-        write-verbose "Found driver $($psitem.id) in boot image $bootImageName"
+        Write-Verbose "Found driver $($psitem.id) in boot image $bootImageName"
     }    
 }
 
@@ -182,85 +184,76 @@ Get-CMDriver | ForEach-Object {
     $myTempDriver.SourcePath = $PSItem.ContentSourcePath
     
 
-    write-verbose "---------$($myTempDriver.Name)---------"
+    Write-Verbose "---------$($myTempDriver.Name)---------"
     
     #is this in a used category?
-    if($PSItem.CategoryInstance_UniqueIDs -ne $null)
+    If($PSItem.CategoryInstance_UniqueIDs -ne $null)
     {
         $tmpCategories = @();
         $tmpCategoriesNames = @();
         $tmpIds = $PSItem.CategoryInstance_UniqueIDs
         $tmpIds | %{($_.ToString()).substring(17)} | ForEach-Object { 
-            if($PSItem -in $Categories)
+            If($PSItem -in $Categories)
             {
                 $InActiveCategory = $true 
-                write-verbose "$($myTempDriver.Name) is in active category $PSItem"
+                Write-Verbose "$($myTempDriver.Name) is in active category $PSItem"
             }
             $tmpCategories += $PSItem
             $tmpCategoriesNames += (Get-CMCategory -Id "DriverCategories:$PSItem").LocalizedCategoryInstanceName
         }       
         $myTempDriver.Categories = $tmpCategoriesNames
     }
-    if(-not $InActiveCategory) {
-        Write-verbose "$($myTempDriver.Name) is not in an active category"
+    If(-not $InActiveCategory) {
+        Write-Verbose "$($myTempDriver.Name) is not in an active category"
     }
     
     #is this in a used driver package?
-    <#$packages | ForEach-Object {
-        Get-WmiObject -Query "select * from sms_drivercontainer where packageID = '$PSitem' and ci_id = '$DriverID'" -Namespace "root\sms\site_$SiteCode" | foreach-Object {
-            write-verbose "$DriverName is in active package $($PSitem.PackageID)" 
-            $InActivePackage = $true
-        }
-    }
-    #>
     $tmpPackages = @();
     Get-WmiObject -Query "select PackageID from sms_drivercontainer where ci_id = '$($myTempDriver.ID)'" -Namespace "root\sms\site_$SiteCode" -ComputerName $SiteServer| foreach-Object {
-            if($PSItem.PackageID -in $Packages) 
+            If($PSItem.PackageID -in $Packages) 
             {
-                write-verbose "$($myTempDriver.Name) is in active package $($PSitem.PackageID)" 
+                Write-Verbose "$($myTempDriver.Name) is in active package $($PSitem.PackageID)" 
                 $InActivePackage = $true
             }
             $tmpPackages += $PSItem.PackageID
     }
     $myTempDriver.Packages = $tmpPackages
 
-    if( -not $InActivePackage)
+    If( -not $InActivePackage)
     {
-        write-verbose "$($myTempDriver.Name) is not in an active package " 
+        Write-Verbose "$($myTempDriver.Name) is not in an active package " 
     }
     
     #is it in boot media?
-    if($myTempDriver.ID -in $driversInBootMedia)
+    If($myTempDriver.ID -in $driversInBootMedia)
     {
-        write-verbose "$($myTempDriver.Name), drive Id: $($MyTempDriver.ID) is used for boot media"
+        Write-Verbose "$($myTempDriver.Name), drive Id: $($MyTempDriver.ID) is used for boot media"
         $InBootMedia = $true
     }
-    else
+    Else
     {
-        write-verbose "$($myTempDriver.Name) is not in a boot media"
+        Write-Verbose "$($myTempDriver.Name) is not in a boot media"
     }
-    if(-not $InActiveCategory -and (-not $InActivePackage) -and (-not $InBootMedia))  #this is an unused driver.
+    If(-not $InActiveCategory -and (-not $InActivePackage) -and (-not $InBootMedia))  #this is an unused driver.
     {
         $UnusedDriverObjects += $myTempDriver
-        write-verbose "$($myTempDriver.Name), ID: $($MyTempDriver.ID) is unused and can be deleted."
+        Write-Verbose "$($myTempDriver.Name), ID: $($MyTempDriver.ID) is unused and can be deleted."
     }
 }
-
 #$UnusedDriverObjects | select LocalizedDisplayName, DriverInfFile, DriverVersion
 
-#evaluate if driver packages are used
+#evaluate If driver packages are used
 #Unused Driver Packages.  This is unlikely to be super helpful.  Drivers in packages will also have categories.  
-write-verbose "Looking for unused driver packages."
+Write-Verbose "Looking for unused driver packages."
 $unusedDriverPackages = @();
 Get-CMDriverPackage | ForEach-Object {
     $myTempPackage = [myPackage]::new()
-    if($PSItem.PackageID -in $packages ) {
-        
-        Write-verbose "Driver Package $($PSItem.Name) is in use"
+    If($PSItem.PackageID -in $packages ) {        
+        Write-Verbose "Driver Package $($PSItem.Name) is in use"
     }
-    else
+    Else
     {
-        Write-verbose "Driver Package $($PSItem.Name) is not in use" 
+        Write-Verbose "Driver Package $($PSItem.Name) is not in use" 
         $myTempPackage.ID = $PSItem.PackageID
         $myTempPackage.Name = $PSItem.Name
         $unusedDriverPackages += $myTempPackage
@@ -274,28 +267,28 @@ Get-CMCategory -CategoryType DriverCategories | ForEach-Object {
     $myTempCategory.Name = $psitem.LocalizedCategoryInstanceName
     $myTempCategory.ID = $psitem.CategoryInstance_UniqueID
     $tmpCat = $myTempCategory.ID.substring(17)
-    if($tmpCat -in $Categories)
+    If($tmpCat -in $Categories)
     {
         Write-Verbose "Category $CategoryName is in use"
     }
-    else
+    Else
     {
-        write-verbose "Category $CategoryName is not in use"
+        Write-Verbose "Category $CategoryName is not in use"
         $unusedCategories += $myTempCategory
     }
 }
 
 #delete the drivers
 $UnusedDriverObjects.ID| ForEach-Object {
-    if ($pscmdlet.ShouldProcess($PSItem, 'Delete driver')) { #whatif?
-        Remove-CMDriver -Id $PSItem -force -Verbose
+    If ($pscmdlet.ShouldProcess($PSItem, 'Delete driver')) { #whatIf?
+        Remove-CMDriver -Id $PSItem -Force 
     }
 }
-write-verbose "Total unused drivers found $($UnusedDriverObjects.count)"
+Write-Verbose "Total unused drivers found $($UnusedDriverObjects.count)"
 
-set-location $StartingDriveLocation`:
+Set-Location $StartingDriveLocation`:
 
-if($HTMLReport)
+If($HTMLReport)
 {
     <#$a = "<style>"
     $a = $a + "BODY{background-color:white;}"
