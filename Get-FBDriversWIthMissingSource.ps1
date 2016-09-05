@@ -38,7 +38,7 @@ Import-Module ($Env:SMS_ADMIN_UI_PATH.Substring(0,$Env:SMS_ADMIN_UI_PATH.Length-
 $StartingDriveLocation = $pwd.Drive.Name
 
 Set-Location $startingDriveLocation`:  #this is for debug reasons.
-Start-Transcript -Path "Get-FBInactiveDrivers.log" -Append -Force -WhatIf:$false
+Start-Transcript -Path "Remove-FBInactiveDrivers.log" -Append -Force -WhatIf:$false
 Set-Location $SiteCode`:
 
 Class MyDriver {
