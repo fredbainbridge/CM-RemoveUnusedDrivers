@@ -1,3 +1,30 @@
+<#
+.SYNOPSIS
+    This script should be run on as needed basis.
+
+.DESCRIPTION
+    This script is used to identIfy and then delete drivers with missing source file(s).  
+    
+.PARAMETER SiteCode
+    The site code of your ConfigMgr site.  i.e. PS1
+.PARAMETER SiteServer
+    The hostname of a site server in your ConfigMgr site.
+.PARAMETER HTMLReport
+    The filename of a HTML report that shows what drivers are not in use.  This defaults to "UnusedDrivers.html"
+
+.EXAMPLE
+    Discover what drivers are missing source files but do not delete them. (WhatIf)
+    .\Get-FBDriversWIthMissingSource.ps1 -SiteCode LAB -SiteServer localhost -WhatIf -Verbose
+
+    Delete drivers with missing source files.
+    .\Get-FBDriversWIthMissingSource.ps1 -SiteCode LAB -SiteServer localhost -Verbose
+
+.NOTES
+    Author:    Fred Bainbridge
+    Created:   2016-09-04
+    
+    To Do:     
+#>
 [CmdletBinding(SupportsShouldProcess=$true)]
 param(
     [Parameter(Mandatory=$True)]
@@ -50,15 +77,6 @@ $DriversWithMissingSource.ID| ForEach-Object {
 
 if($HTMLReport)
 {
-    <#$a = "<style>"
-    $a = $a + "BODY{background-color:white;}"
-    $a = $a + "TABLE{border-width: 1px;border-style: solid;border-color: black;border-collapse: collapse;text-align: left;}"
-    $a = $a + "TH{border-width: 1px;padding: 1px;border-style: solid;border-color: black;text-align: left;}"
-    $a = $a + "TD{border-width: 1px;padding: 1px;border-style: solid;border-color: black;}"
-    $a = $a + "</style>"
-    $RowExample = "<tr><td>Intel(R) Smart Sound Technology (Intel(R) SST) OED</td><td>16787493</td><td>IntcOED.inf</td><td>8.20.0.877</td><td>System.String[]</td><td>System.String[]</td></tr>"
-    #>
-    #Unused Drivers
     $html = 
 @"
     <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -80,4 +98,3 @@ if($HTMLReport)
 
     $HTML | Out-File $HTMLReport -WhatIf:$false
 }
-
