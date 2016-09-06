@@ -19,6 +19,9 @@
     Delete drivers with missing source files.
     .\Remove-FBDriversWIthMissingSource.ps1 -SiteCode LAB -SiteServer localhost -Verbose
 
+    Delete drivers with missing source files and create a html report named "MyUnusedDrivers.html".
+    .\Remove-FBDriversWIthMissingSource.ps1 -SiteCode LAB -SiteServer localhost -Verbose -HTMLReport "MyUnusedDrivers.html"
+
 .NOTES
     Author:    Fred Bainbridge
     Created:   2016-09-04
