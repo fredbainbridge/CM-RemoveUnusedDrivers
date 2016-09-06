@@ -14,10 +14,10 @@
 
 .EXAMPLE
     Discover what drivers are missing source files but do not delete them. (WhatIf)
-    .\Get-FBDriversWIthMissingSource.ps1 -SiteCode LAB -SiteServer localhost -WhatIf -Verbose
+    .\Remove-FBDriversWIthMissingSource.ps1 -SiteCode LAB -SiteServer localhost -WhatIf -Verbose
 
     Delete drivers with missing source files.
-    .\Get-FBDriversWIthMissingSource.ps1 -SiteCode LAB -SiteServer localhost -Verbose
+    .\Remove-FBDriversWIthMissingSource.ps1 -SiteCode LAB -SiteServer localhost -Verbose
 
 .NOTES
     Author:    Fred Bainbridge
@@ -31,7 +31,7 @@ param(
     [string]$SiteCode = "LAB",
     [Parameter(Mandatory=$True)]
     [string]$SiteServer = "localhost",
-    [string]$HTMLReport = "UnusedDrivers.html"
+    [string]$HTMLReport = "DriversWithMissingSource.html"
 )
 
 Import-Module ($Env:SMS_ADMIN_UI_PATH.Substring(0,$Env:SMS_ADMIN_UI_PATH.Length-5) + '\ConfigurationManager.psd1') -Verbose:$false
