@@ -68,7 +68,23 @@ Get-CMDriver | ForEach-Object {
         Write-Verbose "Driver $($myTempDriver.Name) is missing source file"
         Write-Verbose "`t$($myTempDriver.InfFile)"
         $DriversWithMissingSource += $myTempDriver
+        #get category information about driver$tmpIds = $PSItem.CategoryInstance_UniqueIDs
+        $tmpCategories = @();
+        $tmpCategoriesNames = @();
+        $tmpIds = $PSItem.CategoryInstance_UniqueIDs
+        $tmpIds | %{($_.ToString()).substring(17)} | ForEach-Object { 
+            $tmpCategories += $PSItem
+            $tmpCategoriesNames += (Get-CMCategory -Id "DriverCategories:$PSItem").LocalizedCategoryInstanceName
+        }       
+        $myTempDriver.Categories = $tmpCategoriesNames
     }
+    $tmpPackages = @();
+    $tmpPackagesNames = @();
+    Get-WmiObject -Query "select PackageID,Name from sms_drivercontainer where ci_id = '$($myTempDriver.ID)'" -Namespace "root\sms\site_$SiteCode" -ComputerName $SiteServer| foreach-Object {
+            $tmpPackages += $PSItem.Name
+    }
+    $myTempDriver.Packages = $tmpPackages
+    
 }
 
 #delete the drivers
@@ -90,11 +106,21 @@ if($HTMLReport)
     <H2>Unused Driver Information</H2>
     <table>
     <colgroup><col/><col/><col/><col/><col/><col/><col/></colgroup>
-    <tr><th>Name</th><th>ID</th><th>InfFile</th><th>Version</th><th>Source Path</th></tr>
+    <tr><th>Name</th><th>ID</th><th>InfFile</th><th>Version</th><th>Source Path</th><th>Packages</th><th>Categories</th></tr>
 "@
     $DriversWithMissingSource = $DriversWithMissingSource | Sort-Object -Property Name
     $DriversWithMissingSource | ForEach-Object {
-        $HTML = "$HTML<tr><td>$($PSItem.Name)</td><td>$($PSItem.ID)</td><td>$($PSItem.InfFile)</td><td>$($PSItem.Version)</td><td>$($PSItem.SourcePath)</td></tr>"
+        $tempPackages = $null
+        $tempCategories = $null
+        $PSItem.Packages | ForEach-Object {
+            $tempPackages = "$tempPackages, $PSItem"           
+            $tempPackages = $tempPackages.trim(", ")
+        }
+        $PSItem.Categories | ForEach-Object {
+            $tempCategories = "$tempCategories, $PSItem"
+        }
+        $tempCategories = $tempCategories.Trim(", ")
+        $HTML = "$HTML<tr><td>$($PSItem.Name)</td><td>$($PSItem.ID)</td><td>$($PSItem.InfFile)</td><td>$($PSItem.Version)</td><td>$($PSItem.SourcePath)</td><td>$tempPackages</td><td>$tempCategories</td></tr>"
     }
     $html = "$HTML </table>"
     $html = "$HTML </body></html>"
