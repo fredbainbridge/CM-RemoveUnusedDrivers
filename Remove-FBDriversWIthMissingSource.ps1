@@ -1,7 +1,6 @@
 <#
 .SYNOPSIS
     This script should be run on as needed basis.
-
 .DESCRIPTION
     This script is used to identIfy and then delete drivers with missing source file(s).  
     
@@ -11,17 +10,13 @@
     The hostname of a site server in your ConfigMgr site.
 .PARAMETER HTMLReport
     The filename of a HTML report that shows what drivers are not in use.  This defaults to "UnusedDrivers.html"
-
 .EXAMPLE
     Discover what drivers are missing source files but do not delete them. (WhatIf)
     .\Remove-FBDriversWIthMissingSource.ps1 -SiteCode LAB -SiteServer localhost -WhatIf -Verbose
-
     Delete drivers with missing source files.
     .\Remove-FBDriversWIthMissingSource.ps1 -SiteCode LAB -SiteServer localhost -Verbose
-
     Delete drivers with missing source files and create a html report named "MyUnusedDrivers.html".
     .\Remove-FBDriversWIthMissingSource.ps1 -SiteCode LAB -SiteServer localhost -Verbose -HTMLReport "MyUnusedDrivers.html"
-
 .NOTES
     Author:    Fred Bainbridge
     Created:   2016-09-04
@@ -72,10 +67,12 @@ Get-CMDriver | ForEach-Object {
         $tmpCategories = @();
         $tmpCategoriesNames = @();
         $tmpIds = $PSItem.CategoryInstance_UniqueIDs
-        $tmpIds | %{($_.ToString()).substring(17)} | ForEach-Object { 
-            $tmpCategories += $PSItem
-            $tmpCategoriesNames += (Get-CMCategory -Id "DriverCategories:$PSItem").LocalizedCategoryInstanceName
-        }       
+        if($tmpIds) {
+            $tmpIds | %{($_.ToString()).substring(17)} | ForEach-Object { 
+                $tmpCategories += $PSItem
+                $tmpCategoriesNames += (Get-CMCategory -Id "DriverCategories:$PSItem").LocalizedCategoryInstanceName
+            }       
+        }
         $myTempDriver.Categories = $tmpCategoriesNames
     }
     $tmpPackages = @();
@@ -88,11 +85,13 @@ Get-CMDriver | ForEach-Object {
 }
 
 #delete the drivers
-$DriversWithMissingSource.ID| ForEach-Object {
+Set-Location $SiteCode`:
+$DriversWithMissingSource.ID| ForEach-Object { 
     if ($pscmdlet.ShouldProcess($PSItem, 'Delete driver')) { #whatif?
         Remove-CMDriver -Id $PSItem -Force -Verbose
     }
 }
+Set-Location $StartingDriveLocation`:
 
 if($HTMLReport)
 {
@@ -119,7 +118,10 @@ if($HTMLReport)
         $PSItem.Categories | ForEach-Object {
             $tempCategories = "$tempCategories, $PSItem"
         }
-        $tempCategories = $tempCategories.Trim(", ")
+        if($tmpCategories)
+        {
+            $tempCategories = $tempCategories.Trim(", ")
+        }
         $HTML = "$HTML<tr><td>$($PSItem.Name)</td><td>$($PSItem.ID)</td><td>$($PSItem.InfFile)</td><td>$($PSItem.Version)</td><td>$($PSItem.SourcePath)</td><td>$tempPackages</td><td>$tempCategories</td></tr>"
     }
     $html = "$HTML </table>"
